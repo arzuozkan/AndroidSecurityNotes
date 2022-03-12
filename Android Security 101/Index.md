@@ -1,7 +1,0 @@
-# 1. [[AndroidSec#1 Android Mimarisi|Android Mimrisi]]
-# 2. [[AndroidSec#2 Android Uygulama temelleri APK|APK, Android Uygulama]]
-# 3. [[AndroidSec#3 Android analiz ortamı ve araçlar|Android Analizi ve Araçlar]]
-# 4.  [[AndroidSec#4 Android Uygulamaları| Diğer Android Uygulamalar]]
-# 5. [[AndroidSec#5 Android Malware Türleri| Android Malware Türleri]]
-# 6. [[AndroidSec#6 OWASP MOBILE|OWASP MTG]]
-# 7. [[AndroidSec#Other Topics]]
