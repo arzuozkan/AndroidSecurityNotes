@@ -1,15 +1,14 @@
 # 0. İçindekiler
- 0. [[AndroidSec#0 İçindekiler|İçindekiler]]
- 
- 1. [[AndroidSec#1 Android Mimarisi|Android Mimrisi]]
- 3. [[AndroidSec#2 Android Uygulama temelleri APK|APK, Android Uygulama]]
- 4. [[AndroidSec#3 Android analiz ortamı ve araçlar|Android Analizi ve Araçlar]]
- 5.  [[AndroidSec#4 OWASP MOBILE|OWASP Mobile Top 10 ]]
- 6. [[AndroidSec#5 Android Uygulama Güvenliği| Android Uygulama Güvenliği]]
- 7. [[AndroidSec#6 Android Saldırı Yüzeyi|Android Saldırı Yüzeyi]]
- 8. [[AndroidSec#7 Android Malware Türleri| Android Malware Türleri]]
- 9. [[AndroidSec#8 Other Topics| Other topics]]
- 10. [[AndroidSec#Kaynak|Kaynaklar]]
+
+1. [Android Mimarisi](https://github.com/arzuozkan/MyAndroidSecurityNotes/blob/main/Android%20Security%20101/AndroidSec.md#1-android-mimarisi)
+2. [Android Uygulama ve APK](https://github.com/arzuozkan/MyAndroidSecurityNotes/blob/main/Android%20Security%20101/AndroidSec.md#2-android-uygulama-temelleri-apk)
+3. [Android Analiz Ortamı ve Araçlar](https://github.com/arzuozkan/MyAndroidSecurityNotes/blob/main/Android%20Security%20101/AndroidSec.md#3-android-analiz-ortam%C4%B1-ve-ara%C3%A7lar)
+4. [OWASP Mobile Top 10](https://github.com/arzuozkan/MyAndroidSecurityNotes/blob/main/Android%20Security%20101/AndroidSec.md#4-owasp-mobile-top-10)
+5. [Android Uygulama Güvenliği](https://github.com/arzuozkan/MyAndroidSecurityNotes/blob/main/Android%20Security%20101/AndroidSec.md#5-android-uygulama-g%C3%BCvenli%C4%9Fi)
+6. [Android Saldırı Yüzeyi](https://github.com/arzuozkan/MyAndroidSecurityNotes/blob/main/Android%20Security%20101/AndroidSec.md#6--android-sald%C4%B1r%C4%B1-y%C3%BCzeyi)
+7. [Android Malware Türleri](https://github.com/arzuozkan/MyAndroidSecurityNotes/blob/main/Android%20Security%20101/AndroidSec.md#7-android-malware-t%C3%BCrleri)
+8. [Diğer Konular](https://github.com/arzuozkan/MyAndroidSecurityNotes/blob/main/Android%20Security%20101/AndroidSec.md#8-other-topics)
+9. [Kaynak](https://github.com/arzuozkan/MyAndroidSecurityNotes/blob/main/Android%20Security%20101/AndroidSec.md#kaynak)
 
 ---
 # 1. Android Mimarisi
@@ -112,16 +111,14 @@ gibi bilgilerdir.
 
 APK dosyaları Play Store, GetAPK, GETJAR, F-Froid, Apkpure, Aptoide gibi platformlardan yüklenebilmektedir. Aynı zamanda adb aracı kullanarak da cihaza uygulama yüklenebilir.
 
-	>adb install /path/app.apk
+> `adb install /path/app.apk`
 ilgili paketi kaldırmak için
 
-	>adb uninstall package.name
+> `adb uninstall package.name`
 yüklü paketlerin listesini 
 
-	>adb shell pm list packages
+> `adb shell pm list packages`
 komutu ile listelenmektedir.
-
-
 
 
 ---
@@ -137,7 +134,7 @@ Android kontrol listesi içerisinde,
 Konuya girmeden önce genel olarak mobil uygulama penetration test aşamalarından bahsedilebilir. Bu adımlar temelde
 
 Reconnaissance ---> Statik  ---> Dinamik  ---> Raporlama
-		(keşif)                    Analiz             Analiz
+      (keşif)       Analiz       Analiz
 
 
 **Keşif** aşamasında, uygulama hakkında bilgi toplanır, uygulama versiyonları ve yapılan güncellemeler incelenebilir, geliştiricileri araştırlır.
@@ -207,7 +204,7 @@ Bazı adb komutları,
 **Frida**
 - [ ] [frida tutoriallarını](https://book.hacktricks.xyz/mobile-apps-pentesting/android-app-pentesting/frida-tutorial) inceliyordum
 
-Android Analiz araçları
+- [ ] TODO:Android Analiz araçları düzenlenecek
 
 **Drozer**
 
@@ -216,39 +213,26 @@ https://github.com/FSecureLABS/drozer
 Android cihaz içerisine native uygulama olarak yüklenip Dalvik sanal makine ile iletişim kurarak cihazdaki uygulamalar için zafiyet taraması gerçekleştirir. Sunucu ve ajan uygulaması bulunur. Sunucu konsol aracılığıyla ajan ile iletişimi gerçekleştirir. Python ile geliştirilmiş frameworktür.
 
 
-
-
 ---
 
 # 4. OWASP MOBILE TOP 10
-OWASP mobil en son 2016 yılında yayınlanan listesi,
-1. 
-2. Insecure Data Storage
-3. sdf
-4. dkf
-5. sdf
-6. sdf
-7. sdf
-8. sdff
-9. sdf
-10. sdf
 
 
 ---
 
 # 5. Android Uygulama Güvenliği
 
-Android güvenli uygulama geliştirme ve güvenliği üzerine olası zafiyetleri konu almış ve güvenli olmayan zayıf kodlamaya değinilen bazı uygulamalar geliştirilmiştir. ^c44d87
+Android güvenli uygulama geliştirme ve güvenliği üzerine olası zafiyetleri konu almış ve güvenli olmayan zayıf kodlamaya değinilen bazı uygulamalar geliştirilmiştir
 
->- [[DIVA]]  
->- [[InsecureShop]]
+>- [DIVA](https://github.com/payatu/diva-android)
+>- [Insecure Shop](https://github.com/arzuozkan/MyAndroidSecurityNotes/blob/main/Android%20Security%20101/InsecureShop.md)
 >- [OWASP MSTG Hacking Playground](https://github.com/OWASP/MSTG-Hacking-Playground)
 >- [UnsafeBank](https://github.com/lucideus-repo/UnSAFE_Bank)
 >- [InjuredAndroid](https://github.com/B3nac/InjuredAndroid)
 >- [Android Application Security](https://github.com/RavikumarRamesh/hpAndro1337)
 >- [AndroGoat](https://github.com/satishpatnayak/AndroGoat)
->- [owasp mstg crackmes](https://github.com/OWASP/owasp-mstg/tree/master/Crackmes/Android)
->- 
+>- [OWASP MSTG crackmes](https://github.com/OWASP/owasp-mstg/tree/master/Crackmes/Android)
+
 
 uygulamaları örnek olarak verilebilir. Bu uygulamalarda yer alan başlıklar temel olarak
 - Insecure Logging
@@ -270,97 +254,19 @@ gibi konular yer almaktadır.
 # 6.  Android Saldırı Yüzeyi
 ![Android Apps Pen-testing | securitybreached.org](https://i0.wp.com/blog.securitybreached.org/wp-content/uploads/2020/03/chart.png?resize=845%2C425&ssl=1)
 
-- [ ] #todo ==Olası saldırı türleri
+- [ ] TODO:Olası saldırı türleri araştırılacak
 
 ---
 
 # 7. Android Malware Türleri
+- [ ] bilinen ve güncel zararlı yazılımların detaylı araştırılması yapılacak
 ---
 
 # 8 Other Topics
 
 ## 1. Mobile Forensics
-==Konu başlıkları
-Mobile forensics introduction
-    -   Types of devices
-    -   GPS
-    -   Cell phones
-    -   Tablets
-    -   Vendor and carrier identification
-    -   Obtaining information from cellular provider
-    -   GSM vs. CDMA
-    -   Common tools and methodology
-    Mobile forensics process
-    -   Mobile forensics challenges
-        -   OS variety
-        -   Differences in hardware and filesystems
-        -   Security features
-        -   Data volatility
-        -   Cloud storage
-    -   Types of evidence found on mobile devices
-    -   Collecting mobile devices at the scene
-        -   Locating devices
-        -   Preserving volatile data
-        -   Physical components and accessories (SIM cards, SD cards, chargers, etc.)
-        -   Older phones and devices
-    -   Comparison of mobile operating systems
-        -   Android
-        -   iOS
-        -   Windows phone
-        -   Blackberry OS
-    -   Data acquisition methods
-        -   Logical acquisition
-        -   Physical acquisition
-        -   Manual acquisition
-    -   Reporting findings
- Android forensics    
-    -   Android platform
-        -   Hardware
-        -   SDK and debug bridge
-        -   File systems and data structures
-    -   Android security model
-        -   Secure kernel and permissions
-        -   Full disk encryption
-        -   App security
-    -   Bypassing Android security features
-        -   Bootloader/recovery mode
-        -   Rooting an Android device
-        -   Lock screen bypassing techniques
-    -   Android logical data acquisition and analysis
-        -   Extracting the /data directory
-        -   Device information
-        -   SMS/MMS, email, browsing and social networking data
-        -   App and cloud data
-    -   Android physical data acquisition
-        -   Hardware-based techniques
-        -   JTAG
-        -   Chip-off
-        -   Android data recovery techniques 
-    iOS forensics 
-    -   Apple iOS platform
-        -   iOS devices and hardware
-        -   iOS versions, file system and architecture
-    -   iOS security
-        -   Passcode and Touch ID
-        -   Privilege separation
-        -   ASLR and data execution prevention
-        -   Encryption
-    -   Bypassing iOS security features
-        -   Operating modes of iOS devices
-        -   Custom RAMDisk
-        -   Jailbreaking
-        -   Bypassing passcode
-        -   Breaking iOS device encryption keys
-        -   Establishing trusted communication with desktop computer
-    -   iOS data acquisition and analysis
-        -   SQLite databases
-        -   Property lists
-        -   Other important files (cookies, keyboard cache, recordings, etc.)
-    -   iPhone/iCloud backups
-        -   Backup structure
-        -   Extracting and examining unencrypted backups
-        -   Encrypted backups (extracting and decrypting the keychain)
-    -   iOS data recovery techniques==
+
+...
 
 ---
 
