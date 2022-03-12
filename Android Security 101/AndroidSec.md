@@ -216,6 +216,23 @@ Android cihaz içerisine native uygulama olarak yüklenip Dalvik sanal makine il
 ---
 
 # 4. OWASP MOBILE TOP 10
+OWASP'ın en son 2016 yılında yayınladığı popüler 10 adet mobil uygulama güvenlik zafiyetleri listesi:
+
+1. Improper Platform Usage (Hatalı Platform Kullanımı)
+2. Insecure Data Storage (Güvensiz Veri Depolama)
+3. Insecure Communication (Güvensiz İletişim)
+4. Insecure Authentication (Güvenli Olmayan Kimlik Doğrulama)
+5. Insufficient Cryptography (Yetersiz Kriptografi)
+6. Insecure Authorization (Güvensiz Yekilendirme)
+7. Client Code Quality (İstemci Kod Kalitesi)
+8. Code Tampering (Kod Kurcalama)
+9. Reverse Engineering (Tersine Mühendislik)
+10.Extraneous Functionality (Yabancı İşlevsellik)
+
+## 1. Improper Plaform Usage
+
+## 2. Insecure Data Storage (Güvensiz Veri Depolama)
+
 
 
 ---
