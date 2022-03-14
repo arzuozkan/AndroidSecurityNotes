@@ -82,7 +82,7 @@ elementleri altsınıflardır.
 **APK**
 Apk(Android Application Pack) sıkıştırılmış bir klasör olarak açılabilir.
 
-> `unzip -d application.apk`
+`unzip -d application.apk`
 
 **AndroidManifest.xml**
 İçerisinde uygulama ile ilgili bilgileri içerir. Bunlar, 
@@ -111,13 +111,13 @@ gibi bilgilerdir.
 
 APK dosyaları Play Store, GetAPK, GETJAR, F-Froid, Apkpure, Aptoide gibi platformlardan yüklenebilmektedir. Aynı zamanda adb aracı kullanarak da cihaza uygulama yüklenebilir.
 
-> `adb install /path/app.apk`
+`adb install /path/app.apk`
 ilgili paketi kaldırmak için
 
-> `adb uninstall package.name`
+`adb uninstall package.name`
 yüklü paketlerin listesini 
 
-> `adb shell pm list packages`
+`adb shell pm list packages`
 komutu ile listelenmektedir.
 
 
@@ -134,7 +134,6 @@ Android kontrol listesi içerisinde,
 Konuya girmeden önce genel olarak mobil uygulama penetration test aşamalarından bahsedilebilir. Bu adımlar temelde
 
 Reconnaissance ---> Statik  ---> Dinamik  ---> Raporlama
-      (keşif)       Analiz       Analiz
 
 
 **Keşif** aşamasında, uygulama hakkında bilgi toplanır, uygulama versiyonları ve yapılan güncellemeler incelenebilir, geliştiricileri araştırlır.
@@ -232,10 +231,19 @@ OWASP'ın en son 2016 yılında yayınladığı popüler 10 adet mobil uygulama 
 ## 1. Improper Plaform Usage
 
 ## 2. Insecure Data Storage (Güvensiz Veri Depolama)
+Mobil cihaz içerisindeki dosya kalsörlerine erişim kolayca gerçekleşebilir. Cihazın bilgileri kaydettiği klasöre de erişim çeşitli yollardan gerçekleşebilir. Bu durumlarda uygulamanın statik analazini yapan ve hassas veriyi bulan birçok araç bulunmaktadır. (Örneğin [StaCoAn](https://github.com/vincentcox/StaCoAn), uygulamadaki API anahtarlarını, URL bağlantıları, hardcoded metinleri tespit edebilmektedir. Yaygın kullanılan araçlardan bir diğeri [apkleaks](https://github.com/dwisiswant0/apkleaks), APK dosyasını tarayarak içerisindeki bağlantıları, URI ve hassas bilgileri tespit edebilir.) Bu güvenlik açığı, kimlik hırsızlığına, gizlilik ihlaline yol açabilir.Bu veriler nerede açığa çıkabilir,
+- SQL veritabanlarında,
+- Log dosyalarında,
+- Çerezlerde,
+- SD Card,
+- Bulut hizmetleri,
+gibi birçok yerde güvensiz bir şekilde depolanabilir.
+Korunma yöntemleri:
 
 
-
+## 3. 
 ---
+
 
 # 5. Android Uygulama Güvenliği
 
