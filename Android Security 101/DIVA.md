@@ -4,7 +4,7 @@
 # **Insecure Data Storage
 ## 1. Part 1
 
-İlk bölümde bizden bir kullanıcı adı ve şifre girip onun nereye nasıl kaydedildiğini bulmamız isteniyor.
+İlk bölümde bizden bir kullanıcı adı ve şifre girip onun nereye nasıl kaydedildiğini bulmamız isteniyor. Kullanıcı adı ve şifre kısmına, *third_party_username,third_party_password* girdim.
 ![diva1.png](https://github.com/arzuozkan/MyAndroidSecurityNotes/blob/main/images/diva1.png?raw=true)
 
 Bilgileri kaydettikten sonra `jadx` aracını kullanarak apk dosyasını okunabilir olarak açabiliyoruz. Kodu incelememizin amacı bilgilerin nasıl kaydedildiğini anlayabilmek.
@@ -19,7 +19,14 @@ shared_prefs klasörü içerisinde girilen bilgileri içeren xml dosyası bulunm
 ![diva5.png](https://github.com/arzuozkan/MyAndroidSecurityNotes/blob/main/images/diva5.png?raw=true)
 
 ## Part 2
-
+Birinci kısıma benzer şekilde kullanıcı adı ve şifre isteniyor. *username_part2, password_part2* olarak girdim.  `saveCredentials()` fonksiyonunda kullanıcı bilgileri sql veritabanı içerisine açık metin olarak kaydedilmektedir.
+![[diva7.png]]
+`adb shell` komutu ile cihaza erişim sağlanır ve `/data/data` dizini içerisinde database klasörüne gidilmektedir. Çünkü bilgiler veritabanına kaydediliyor. Oluşturulan veritabanı ismi ids2.
+![[diva8.png]]
+shell üzerinden dosyayı açtığımızda tam okunabilir olmuyor ama girilen bilgiler görüntülenebilmektedir.
+![[diva9.png]]
+Dosyayı `adb pull` komutu ile  yerel cihaza yükleyip uygun program ile açabiliriz.
+![[diva10.png]]
 
 ## Part 3
 

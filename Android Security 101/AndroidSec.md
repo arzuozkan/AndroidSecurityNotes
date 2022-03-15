@@ -249,6 +249,7 @@ Korunma yöntemleri:
 
 Android güvenli uygulama geliştirme ve güvenliği üzerine olası zafiyetleri konu almış ve güvenli olmayan zayıf kodlamaya değinilen bazı uygulamalar geliştirilmiştir
 
+>
 >- [DIVA](https://github.com/payatu/diva-android)
 >- [Insecure Shop](https://github.com/arzuozkan/MyAndroidSecurityNotes/blob/main/Android%20Security%20101/InsecureShop.md)
 >- [OWASP MSTG Hacking Playground](https://github.com/OWASP/MSTG-Hacking-Playground)
@@ -257,6 +258,8 @@ Android güvenli uygulama geliştirme ve güvenliği üzerine olası zafiyetleri
 >- [Android Application Security](https://github.com/RavikumarRamesh/hpAndro1337)
 >- [AndroGoat](https://github.com/satishpatnayak/AndroGoat)
 >- [OWASP MSTG crackmes](https://github.com/OWASP/owasp-mstg/tree/master/Crackmes/Android)
+>- [Android App Hacking WorkShop](https://bughunters.google.com/learn/presentations/5783688075542528)
+>
 
 
 uygulamaları örnek olarak verilebilir. Bu uygulamalarda yer alan başlıklar temel olarak
