@@ -13,7 +13,7 @@ Uygulamayı `adb push uygulama-dosyası` komut ile cihaza yükleyebiliriz veya e
 ![aah202111.png](https://github.com/arzuozkan/MyAndroidSecurityNotes/blob/main/images/aah202111.png?raw=true)
 
 jadx aracı ile apk dosyasını okunabilir kodlara dönüştürebiliyoruz. Challange1Activity içerisinde doğrulama işlemi butona tıklandığı zamanda validateChallange01flag() fonksiyonu ile gerçekleşmektedir.
-![aah202112.png](aah202112.png)
+![aah202112.png](../images/aah202112.png)
 
 Fonksiyon içeriği incelendiğinde flag değerinin return edildiği görülmektedir. 
 
