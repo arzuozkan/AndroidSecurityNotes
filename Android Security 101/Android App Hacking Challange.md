@@ -5,7 +5,7 @@ https://bughunters.google.com/learn/presentations/5783688075542528
 
 Uygulamayı `adb push uygulama-dosyası` komut ile cihaza yükleyebiliriz veya emülatör üzerine bırakarak da uygulama yüklenebilir. Bu işlemden sonra uygulama açıldığı zaman görseldeki gibi 8 adet challange içermektedir.
 
-![aah2021.png|](aah2021apk.png)
+![aah2021.png](../images/aah2021apk.png)
 
 ## Challange 1 
 İlk soruda kullanıcıdan alacağı girdiyi doğrulamak üzere bir yapı bulunmaktadır.
