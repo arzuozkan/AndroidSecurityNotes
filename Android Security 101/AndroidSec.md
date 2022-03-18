@@ -45,7 +45,7 @@ Android APK içeriği kabaca,
 	> - sertifikalar
 
 > classes.dex
-	> - uygulama dex dosyası. Çalışan kodlar burada bulunur
+	> - uygulama dex dosyası. Çalışan java(kotlin) kodlar burada bulunur
 
 > lib/
 	> - uygulama için kullanılan yerel kütüphaneler burada bulunur.
@@ -59,9 +59,9 @@ Android APK içeriği kabaca,
 Uygulama geliştirilirken Java veya Kotlin kodları DEX(Dalvik executable) bytecode compile edilir yani dex formata dönüştürülür.
 Tersine mühendislik işlemlerinde ise DEX bytecode önce SMALİ yani Dalvik bytecodeun okunabilir hali, bytecode ile high level programlama dili arasındadır assembly gibi.
 
-
-**Manifest Dosyası**
+## Manifest Dosyası
 Uygulama çalışmadan önce sistem hangi bileşenlerin var olduğunu AndroidManifest.xml dosyasından okumaktadır. Manifest içerisinde,
+- Paket ismi , uygulama id, uygulama ikonu,
 - Kullanıcı izinleri, internet erişimi,kamera erişimi gibi izinler tanımlanmaktadır.
 - En düşük API seviyesi belirtilmektedir
 - yazılım ve donanımsal özellikler tanımlanır, kamera veya bluetooth servisi gibi
@@ -72,54 +72,49 @@ Uygulama çalışmadan önce sistem hangi bileşenlerin var olduğunu AndroidMan
 	- <*service*> -> Service
 	- <*receiver*> -> Broadcast receivers
 	- <*provider*> -> Content providers
-elementleri altsınıflardır.
 
+**Intents** 
+Uygulama içerisindeki bileşenlerin birbirleriyle veya diğer bir uygulamadaki bileşenle iletşim kurmasını sağlayan yapı olarak tanımlanır. Aktiviteyi başlatmak, sistemi değişiklikler için bilgilendirmek,servisler ile iletişimi gerçekleştirmek, contentProvider ile verilere erişmek gibi çeşitli işlerde kullanılmaktadır. 
+Uygulamanın bunu anlayabilmesi için türünü belirleyen yapı `intent-filter` olarak isimlendirilir ve manifest içerisinde kullanılır.Bu yapı sayesinde hangi aktivite veya servis  karşılık vereceğini anlar. Intent-filter içeriği \<action\> \<category\> ve \<data\> elementlerinden oluşur
+  
 **Uygulama Entrypointleri**
-*Launcher Activity(Activity Başlangıcı)* uygulamanın açılmasıyla beraber başlamaktadır
-*Services(Servisler)* Kullanıcı arayüzüne gerek duymaksızın arkaplanda çalışmaktadır. Intentler aracılığıyla uygulamanın entrypointi olabilir.
-*Broadcast Receiver(Alıcı)* kısaca dinleyiciler denilebilir.
+- *Launcher Activity(Activity Başlangıcı)* uygulamanın açılmasıyla beraber başlamaktadır
+- *Services(Servisler)* Kullanıcı arayüzüne gerek duymaksızın arkaplanda çalışmaktadır. Intentler aracılığıyla uygulamanın entrypointi olabilir.
+- *Broadcast Receiver(Alıcı)* kısaca dinleyiciler denilebilir.
 
-**APK**
-Apk(Android Application Pack) sıkıştırılmış bir klasör olarak açılabilir.
+### 1. Activities (Aktiviteler)
+Uygulamanın giriş noktası olarak da söylenebilir. Kullanıcılar ile etkileşime girilen ekran olan Aktiviteler uygulama içerisinde birden çok oluşturulabilir. Android geliştirici çerçevesinden bakıldığında, manifest dosyası içerisinde her aktivitenin \<activity\> tagi içerisinde tanımlanması gerekmektedir ve tanımlanır. Kendine ait yaşam döngüleri bulunur. Activitiy manager(aktivite yöneticisi) aracı ile başlatılabilir exported olduğu zaman. Manifest içerisinde sahip olduğu özellikler detaylıca incelenirse, önemli olarak 
+- `android:exported` : değeri "true" ise aktivite başka uygulamalar tarafından başlatılabilmektedir yani cihazdaki herhangi uygulama kendi aktivite ismi ile erişebilir. Varsayılan değeri eğer intent-filter içermiyorsa "false"dur. 
+- `android:icon` : uygulamanın ikonunu belirler. Uygulama ikona sahip değilse normal bir uygulama olmayabilir.
+- 
 
-`unzip -d application.apk`
+### 2. Services (Servisler)
+Android işletim sistemi içerisinde veri işleme,bildirimler gibi arkaplanda çalışan görevleri yerine getirmektedir. Servisler, aktivitelere benzer olarak ana thread içerisinde çalışırlar ve kendi threadini oluşturamaz ayrıca belirtilmediği sürece farklı process üzerinde çalışmazlar.
 
-**AndroidManifest.xml**
-İçerisinde uygulama ile ilgili bilgileri içerir. Bunlar, 
-- paket ismi,
-- idsi,
-- ikonu, 
-- kullanıcı izinleri,
-- uygulama bileşenleri - Activity,Service,Receiver,Provider
-gibi bilgilerdir.
+### 3. Broadcast Receivers (Alıcılar)
+Sistem çapında bildirimleri yöneten yapıdır. Batarya zayıf olması,kulaklık girişi,mesaj iletildi gibi çeşitli olaylarda yayınlar(broadcast) gerçekleşir. Yayın almanın iki yolu vardır, manifest içerisinde tanımlama veya *registerReceiver* api çağrısını kullanarak dinamik olarak tanımlama. Genellikle arayüz güncelleme,servis başlatma ve kullanıcı bildirimleri oluşturmada kullanılır.
 
-1. Activity
-	- entry point
-	- uygulama içerisinde birden çok olabilir
-2. Service
+### 4. Content Provider (İçerik Sağlayıcı)
+İçerik sağlayıcılar birr arayüz görevi görerek uygulamalar arası veri paylaşımı yapmanın bir yoludur. İçerik sağlayıcılar URI adresleme şeması araclığı ile **content://** olarak uygulanmaktadır.Veritabanı işlemlerine benzer olarak insert(), query(), update() ve delete() metotları bulunur.
+
+
+==2. Service
 	- arka planda gerçekleşen aksiyonlar kullanıcının ne yaptığından bağımsız çalışır
-3. Receiver
+=3. Receiver
 	- sistem çapında eventlere cevap verir
 	- sistem eventleri başka bi uygulamaya - çalışmıyorsa bile - iletebilir
-
-4. Provider
+=4. Provider
 	- verilere erişebilen high-level api, diğer uygulama ver servisler ile etkileşim halindedir
-	- genellikle sqlite veritabanı 
+	- genellikle sqlite veritabanı ==
 
-5. Intent
-	- uygulama bileşenleri arasında gerçekleşen iletişim gerçekleşir
 
-APK dosyaları Play Store, GetAPK, GETJAR, F-Froid, Apkpure, Aptoide gibi platformlardan yüklenebilmektedir. Aynı zamanda adb aracı kullanarak da cihaza uygulama yüklenebilir.
-
+==APK dosyaları Play Store, GetAPK, GETJAR, F-Froid, Apkpure, Aptoide gibi platformlardan yüklenebilmektedir. Aynı zamanda adb aracı kullanarak da cihaza uygulama yüklenebilir.
 `adb install /path/app.apk`
 ilgili paketi kaldırmak için
-
 `adb uninstall package.name`
 yüklü paketlerin listesini 
-
 `adb shell pm list packages`
 komutu ile listelenmektedir.
-
 
 ---
 # 3. Android analiz ortamı ve araçlar
@@ -133,7 +128,7 @@ Android kontrol listesi içerisinde,
 
 Konuya girmeden önce genel olarak mobil uygulama penetration test aşamalarından bahsedilebilir. Bu adımlar temelde
 
-Reconnaissance ---> Statik  ---> Dinamik  ---> Raporlama
+Reconnaissance(Keşif) ---> Statik Analiz ---> Dinamik Analiz  ---> Raporlama
 
 
 **Keşif** aşamasında, uygulama hakkında bilgi toplanır, uygulama versiyonları ve yapılan güncellemeler incelenebilir, geliştiricileri araştırlır.
@@ -147,36 +142,27 @@ Analiz aşamasında bakılması gerekn noktalar,
 - Uygulama Entrypointleri
 - Obfuscate edilmiş metotları decrypt etmek
 
-Bazı yaygın kullanılan Android araçları
-
+==Bazı yaygın kullanılan Android araçları
 > **`apktool`:** APK dosyalarının  içeriğini çıkartarak okunabilir duruma getirebilir. `apktool d - o output_folder app.apk` komutu APK sıkıştırılmış dosyasını açmak için kullanılır.
-
 >  **`dex2jar`:**  APK içerisindeki DEX dosyalarını analiz edilebilir JAR dosyalarına çevirir ve Java analiz araçlarından biridir. Kali Linux beraberinde gelir ve `d2j-dex2jar -o output.jar app.apk` komutu çalıştırılır.
-
 >   **`Anbox`:** sanallaştırma veya emülatör ortamı oluştururak dinamik sürece yardımcı olur
-
 >  **`Android Studio`:** Android geliştirme uygulaması olarak kullanılır. Analiz ve debug süreçlerinde fayda sağlar.
 
-_Tasarım_ --> _Kod_ --> _Derleme_ --> _Çıktı_
-
+==_Tasarım_ --> _Kod_ --> _Derleme_ --> _Çıktı_
 Uygulama geliştirme aşamaları --->
 Tersine mühendislik işlemleri 	 <---
 
-AndroidManifest.xml ve resource.arsc ==Decoder== yardımı ile
-classes.dex ==Disassembler/Decompiler== ile okunabilir duruma getirilebilir.
-
+==AndroidManifest.xml ve resource.arsc Decoder yardımı ile
+classes.dex Disassembler/Decompilerile okunabilir duruma getirilebilir.
 Statik Analiz Araçları bazıları,
 >  [axmlprinter](https://github.com/rednaga/axmlprinter) 
 	>  AndroidManifest.xml **decode**
-	
 >[apktool](https://ibotpeaches.github.io/Apktool/) 
 	>AndroidManifest ve resources **decode**
 	>classes.dex **disassemble** SMALI
-
 >[Jadx](https://github.com/skylot/jadx)
 	>AndroidManifest ve resources **decode**
 	>classes.dex **decode** Java code
-
 >[Bytecode Viewer](https://bytecodeviewer.com/)
 	>AndroidManifest ve resources **decode**
 	>classes.dex **decompile** Java code
@@ -191,9 +177,9 @@ Android Debug Bridge, sunucu-istemci programıdır. İstemci komut satırında a
 Bazı adb komutları,
 >adb devices : bağlı chiazları listeler
 
-> adb tcpip 5555 : telefonu 5555 portundan TCP bağlantısı gerçekleştirir.
+>adb connect HOST[:PORT]
 
-> adb connect <\ telefonIP > : <\ port > Girilen adresdeki cihaz bağlantısını gerçekleştirir
+> adb tcpip 5555 : telefonu 5555 portundan TCP bağlantısı gerçekleştirir.
 
 > adb shell : bağlantısı kurulmuş cihazdan shell alınır
 
@@ -231,7 +217,7 @@ OWASP'ın en son 2016 yılında yayınladığı popüler 10 adet mobil uygulama 
 ## 1. Improper Plaform Usage
 
 ## 2. Insecure Data Storage (Güvensiz Veri Depolama)
-Mobil cihaz içerisindeki dosya kalsörlerine erişim kolayca gerçekleşebilir. Cihazın bilgileri kaydettiği klasöre de erişim çeşitli yollardan gerçekleşebilir. Bu durumlarda uygulamanın statik analazini yapan ve hassas veriyi bulan birçok araç bulunmaktadır. (Örneğin [StaCoAn](https://github.com/vincentcox/StaCoAn), uygulamadaki API anahtarlarını, URL bağlantıları, hardcoded metinleri tespit edebilmektedir. Yaygın kullanılan araçlardan bir diğeri [apkleaks](https://github.com/dwisiswant0/apkleaks), APK dosyasını tarayarak içerisindeki bağlantıları, URI ve hassas bilgileri tespit edebilir.) Bu güvenlik açığı, kimlik hırsızlığına, gizlilik ihlaline yol açabilir.Bu veriler nerede açığa çıkabilir,
+Mobil cihaz içerisindeki dosya kalsörlerine erişim kolayca gerçekleşebilir. Cihazın bilgileri kaydettiği klasöre de erişim çeşitli yollardan gerçekleşebilir. Bu durumlarda uygulamanın statik analazini yapan ve hassas veriyi bulan birçok araç bulunmaktadır. (Örneğin [StaCoAn](https://github.com/vincentcox/StaCoAn), uygulamadaki API anahtarlarını, URL bağlantıları, hardcoded metinleri tespit edebilmektedir. Yaygın kullanılan araçlardan bir diğeri [apkleaks](https://github.com/dwisiswant0/apkleaks), APK dosyasını tarayarak içerisindeki bağlantıları tespit edebilir.) Bu güvenlik açığı, kimlik hırsızlığına, gizlilik ihlaline yol açabilir.Bu veriler nerede açığa çıkabilir,
 - SQL veritabanlarında,
 - Log dosyalarında,
 - Çerezlerde,
@@ -306,4 +292,5 @@ gibi konular yer almaktadır.
 - [AndoridChecklist](https://book.hacktricks.xyz/mobile-apps-pentesting/android-checklist)
 - [Get Started in Android Apps Pen-testing Part1](https://blog.securitybreached.org/2020/03/17/getting-started-in-android-apps-pentesting/)
 - [DIVA Tutorials](https://resources.infosecinstitute.com/topic/cracking-damn-insecure-and-vulnerable-app-diva-part-5/)
+- [Android Application Fundamentals](https://book.hacktricks.xyz/mobile-apps-pentesting/android-app-pentesting/android-applications-basics#2-android-application-fundamentals)
 - 
