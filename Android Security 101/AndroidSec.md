@@ -210,7 +210,12 @@ komutlarını çalıştırarak indirebiliriz. Kullancağımız android cihaza ba
 
 > adb push frida-server /data/local/tmp
 
-`adb shell` komutu ile hedef cihazda komut çalıştırabiliyoruz. komutu çalıştırdıktan sonra frida-server dosyamıza `chmod +x` ile çalıştırma izni verilmektedir. Frida sunucusunu çalıştırmak için  `frida-server &` komutu çalıştırılır. Bağlantının kurul kurulmadığını kontrol etmek için terminal üzerinden `frida-ps -U` ile cihazda çalışan processler listelenebilir. `-U` parametresi USB cihaza bağlanmaktadır. `frida-ps --help`  komutu ile diğer paramtereler ve kullanım amaçları liselenmektedir.
+`adb shell` komutu ile hedef cihazda komut çalıştırabiliyoruz. komutu çalıştırdıktan sonra frida-server dosyamıza `chmod +x` ile çalıştırma izni verilmektedir. Frida sunucusunu çalıştırmak için  `frida-server &` komutu çalıştırılır. Bağlantının kurul kurulmadığını kontrol etmek için terminal üzerinden `frida-ps -U` ile cihazda çalışan processler listelenebilir. `-U` parametresi USB cihaza bağlanmaktadır. `frida-ps --help`  komutu ile diğer paramtereler ve kullanım amaçları liselenmektedir. 
+
+`frida-trace` aracı fonksiyonları ve kütüphaneleri izlemek için kullanılır.  `-i` parametresi bulmak istenen fonksiyon için pattern belirler. `-I` parametresi, belirtilen modül içerisindeki tüm fonksiyonları hooklamak için kullanılır.
+
+> frida-trace -U -i open* -I \*sqlite\*  process
+
 
 ## 6.Dexcalibur
 https://github.com/FrenchYeti/dexcalibur
