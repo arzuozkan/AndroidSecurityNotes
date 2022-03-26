@@ -25,8 +25,14 @@ Birinci kısıma benzer şekilde kullanıcı adı ve şifre isteniyor. *username
 ![diva8.png](../../images/diva8.png)
 shell üzerinden dosyayı açtığımızda tam okunabilir olmuyor ama girilen bilgiler görüntülenebilmektedir.
 ![diva9.png](../../images/diva9.png)
-Dosyayı `adb pull` komutu ile  yerel cihaza yükleyip uygun program ile açabiliriz.
+
+Dosyayı `adb pull` komutu ile  yerel cihaza yükleyip, açabiliriz.
+
 ![diva10.png](../../images/diva10.png)
+
+Konsol üzerinde `sqlite3 ids2` komutunu çalıştırıp kaydedilen myuser isimli tabloadaki veriler okunabilmektedir.
+
+![](../../images/Pasted%20image%2020220326192608.png)
 
 ## Part 3
 

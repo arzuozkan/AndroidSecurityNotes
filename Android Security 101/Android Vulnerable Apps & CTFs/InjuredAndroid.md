@@ -5,13 +5,13 @@ Uygulama sdkVersion=29, analiz cihazımız genymotion üzerinden Google Pixel 3X
 **Konu başlıkları**
 1. Login Vulnerabilities
 2. Insecure Components
-3. 
+3. Insecure Data Storage
 
 ![](../../images/Pasted%20image%2020220318175222.png)
 
 Girilen flag değerleri **Flags Overview** kısmından kontrol edilmektedir.
 
-# Login Vulnerabilities
+# 1. Login Vulnerabilities
 
 ## FLAG 1 -Login
 
@@ -100,9 +100,12 @@ Düzenlenen kod parçası, compiler kullanarak veya terminal üzerinden de çal�
 Burada flag değeri kod analizi ile çözülmüştür. Kod içeriği çok daha karmaşık ve okunabilir durumda olmayabilir. Metot sayısı fazla olabilir bu yüzden yukarıdaki aşamaları takip etmesi mümkün olmayabilir.  Bu durumda diğer yöntem olarak bahsedilen frida aracı kullanılabilmektedir.
 
 **Frida ile metot hooklama yöntemi**
-Hooklama, metotun işleyişini değiştirme olarak açıklanabilir. Uygulama içerisine, javascript kodlarının yerleştirilmesi ve isteğe uygun değiştirilmesi ile gerçekleştirilir. 
+Hooklama, metotun işleyişini değiştirme olarak açıklanabilir. Uygulama içerisine, javascript kodlarının yerleştirilmesi sağlanmaktadır.
 
-# Insecure Components
+- [ ]  Frida aracını kullanarak decrypt etme
+
+
+# 2. Insecure Components
 ## FlagTwoActivity
 
 ![](../../images/Pasted%20image%2020220318175430.png)
@@ -132,8 +135,15 @@ Snackbar ile her `onReceive()` metodu çalıştığında mesajlar ekranda göste
 
 ![](../../images/Pasted%20image%2020220319194023.png)
 
-
 ![](../../images/Pasted%20image%2020220319194128.png)
+
+# 3. Insecure Data Storage
+## FlagSevenSqliteActivity
+
+
+![](../../images/Pasted%20image%2020220326193805.png)
+
+
 
 # Kaynaklar
 - https://github.com/B3nac/InjuredAndroid
