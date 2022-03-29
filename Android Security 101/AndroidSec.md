@@ -322,10 +322,35 @@ gibi konular yer almaktadır.
 ---
 
 # 8 Other Topics
+## Android Anti-Reversing Defenses
+Android uygulamasının analizini ve tersine mühendislik işlemlerini engellemek amaçlı kullanılan yöntemlerdir. Güncel android zararlı yazılımlar içerisinde de bu yöntemlerin kullanımı yüksektir. cihaz içerisinde root tespiti, debugging tespiti, tersine mühendislik araçlarının tespiti, emülator kullanımının tespiti gibi birçok yöntem bulunmaktadır.
 
-## 1. Mobile Forensics
+### 1. Testing Root Detection
+Android uygulamanın analizi ve tersine müendislik işlemlerinde kullanılan araçlar root izninde çalıştığı için bunu önlemek adına root tespiti yapılabilir. Tek başına etkili yöntem olmamakla beraber birden fazla yerde root cihaz kontrolünün yapılması uygulamayı test etmeyi zorlaştırabilmektedir. [Rootbeer](https://github.com/scottyab/rootbeer) aracı cihaz üzerinde root kontrolü yapar. Uygulama cihaza yüklenip çalıştığında görseldeki gibi root kontrolü yapmaktadır.
 
-...
+![](../images/Pasted%20image%2020220327142501.png)
+
+Root cihaz tespiti için kontrol noktaları,
+- Test-keys: test anahtarları için build propertylerin (`android.os.BUILD.TAGS`) gözden geçirilmesi
+- Su & Busybox binary: su ve busybox dosya dizinleri kontrollerinin yapılması (system/xbin/ ve /su/bin/). `checkForBinary("su")` ve `checkForBinary("busybox")` fonksiyonları ile kontrol yapılabilir.
+- Superuser veya root yetkilerini yöneten magisk veya supersu gibi uygulamaların tespiti
+- Android cihazın root durumunu gizleyen uygulamaların kontrolü. `com.devadvance.rootcloak` ,  `com.devadvance.rootcloakplus` , `com.koushikdutta.superuser` , `com.thirdparty.superuser` gibi root gizleme uygulamaların tespit edilmesi.
+
+OWASP MSTG'nin hazırladığı Uncrackable 1 uygulama içerisinde root detection konusu ele alınmıştır. jadx aracı ile apk dosyası açıldığında MainActivity içerisinde `c` isimli sınıf içerisinde `a()` , `b()` , `c()`  fonksiyonlarının sağlanması durumunda root tespiti yapıldığı anlaşılmaktadır.
+
+![](../images/Pasted%20image%2020220327232924.png)
+
+İlgili sınıf içerisi incelendiğinde, root tespiti için yukarıda bahsedilen yöntemlerin birkaçının kullanıldığı görülmektedir.  `a()` metodunda, su isimli dosya dizinleri kontrol edilmektedir.
+
+![](../images/Pasted%20image%2020220327233340.png)
+
+ `b()` metodu içerisinde test-keylerin kontrolü yapılmaktadır.
+ 
+![](../images/Pasted%20image%2020220327233521.png)
+
+ `c()` metodunda ise root uygulaması ve dizinlerinin varlığınin tespiti yapılmaktadır.
+
+![](../images/Pasted%20image%2020220327233658.png)
 
 ---
 
@@ -339,4 +364,6 @@ gibi konular yer almaktadır.
 - [DIVA Tutorials](https://resources.infosecinstitute.com/topic/cracking-damn-insecure-and-vulnerable-app-diva-part-5/)
 - [Android Application Fundamentals](https://book.hacktricks.xyz/mobile-apps-pentesting/android-app-pentesting/android-applications-basics#2-android-application-fundamentals)
 - [# Android Application Pentesting - Mystikcon 2020](https://www.youtube.com/watch?v=NrxTBcjAL8A)
-- 
+- [Android Anti-Reversing Defense](https://mobile-security.gitbook.io/mobile-security-testing-guide/android-testing-guide/0x05j-testing-resiliency-against-reverse-engineering)
+- [Comparison of Different Android Root-Detection Bypass Tools](https://medium.com/secarmalabs/comparison-of-different-android-root-detection-bypass-tools-8fd477251640)
+-  
