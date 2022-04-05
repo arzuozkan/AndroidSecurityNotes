@@ -37,7 +37,7 @@ Kabaca 4 başlıkta incelenir,
 ---
 # 2. Android Uygulama temelleri, APK
 
-Android APK içeriği kabaca,
+Detaya inmeden Android APK içeriği aşağıdaki şekilde gösterilebilir.
 
 > AndroidManifest.xml
 
@@ -110,7 +110,7 @@ Android kontrol listesi içerisinde,
 
 Konuya girmeden önce genel olarak mobil uygulama penetration test aşamalarından bahsedilebilir. Bu adımlar temelde
 
-Reconnaissance(Keşif) ---> Statik Analiz ---> Dinamik Analiz  ---> Raporlama
+Reconnaissance (Keşif aşaması ) ---> Statik Analiz ---> Dinamik Analiz  ---> Raporlama
 
 
 **Keşif** aşamasında, uygulama hakkında bilgi toplanır, uygulama versiyonları ve yapılan güncellemeler incelenebilir, geliştiricileri araştırlır.
@@ -123,55 +123,6 @@ Analiz aşamasında bakılması gerekn noktalar,
 - API çağrıları
 - Uygulama Entrypointleri
 - Obfuscate edilmiş metotları decrypt etmek
-
-==Bazı yaygın kullanılan Android araçları
-> **`apktool`:** APK dosyalarının  içeriğini çıkartarak okunabilir duruma getirebilir. `apktool d - o output_folder app.apk` komutu APK sıkıştırılmış dosyasını açmak için kullanılır.
->  **`dex2jar`:**  APK içerisindeki DEX dosyalarını analiz edilebilir JAR dosyalarına çevirir ve Java analiz araçlarından biridir. Kali Linux beraberinde gelir ve `d2j-dex2jar -o output.jar app.apk` komutu çalıştırılır.
->   **`Anbox`:** sanallaştırma veya emülatör ortamı oluştururak dinamik sürece yardımcı olur
->  **`Android Studio`:** Android geliştirme uygulaması olarak kullanılır. Analiz ve debug süreçlerinde fayda sağlar.
-
-==_Tasarım_ --> _Kod_ --> _Derleme_ --> _Çıktı_
-Uygulama geliştirme aşamaları --->
-Tersine mühendislik işlemleri 	 <---
-
-
-==APK dosyaları Play Store, GetAPK, GETJAR, F-Froid, Apkpure, Aptoide gibi platformlardan yüklenebilmektedir. Aynı zamanda adb aracı kullanarak da cihaza uygulama yüklenebilir.
-`adb install /path/app.apk`
-ilgili paketi kaldırmak için
-`adb uninstall package.name`
-yüklü paketlerin listesini 
-`adb shell pm list packages`
-komutu ile listelenmektedir.
-
-
-
-==AndroidManifest.xml ve resource.arsc Decoder yardımı ile
-classes.dex Disassembler/Decompilerile okunabilir duruma getirilebilir.
-Statik Analiz Araçları bazıları,
->  [axmlprinter](https://github.com/rednaga/axmlprinter) 
-	>  AndroidManifest.xml **decode**
->[apktool](https://ibotpeaches.github.io/Apktool/) 
-	>AndroidManifest ve resources **decode**
-	>classes.dex **disassemble** SMALI
->[Jadx](https://github.com/skylot/jadx)
-	>AndroidManifest ve resources **decode**
-	>classes.dex **decode** Java code
->[Bytecode Viewer](https://bytecodeviewer.com/)
-	>AndroidManifest ve resources **decode**
-	>classes.dex **decompile** Java code
-
-- [ ] #todo ==Tools kısmı düzenle==
-
-Android uygulama pentesting için kullanılan Santoku ISO isimli  açık kaynak dağıtım bulunmaktadır.
-Emülatör olarak Android studio ve Genymotion genellikle tercih edilmektedir. 
-
-**Drozer**
-
-https://github.com/FSecureLABS/drozer
-
-Android cihaz içerisine native uygulama olarak yüklenip Dalvik sanal makine ile iletişim kurarak cihazdaki uygulamalar için zafiyet taraması gerçekleştirir. Sunucu ve ajan uygulaması bulunur. Sunucu konsol aracılığıyla ajan ile iletişimi gerçekleştirir. Python ile geliştirilmiş frameworktür.
-
-> #########
 
 ## 1. adb
 Android Debug Bridge, sunucu-istemci programıdır. İstemci komut satırında adb aracını kullanarak cihaz ile iletişim kurmaktadır.
@@ -188,6 +139,8 @@ Bazı adb komutları,
 
 
 ## 2. jadx
+jadx aracı,apk dosya içeriğini decode ederek dex dosyalarını okunabilir hale dönüştürmektedir. apktool ve dex2jar araçları ile aynı işlevi gerçekleştirirler.
+
 ## 3. apktool
 apktool aracı, APK dosyaların decompile ederek paketinden çıkarmaktadır. Bu sayede Manifest dosyası okunabilir duruma gelir. Normal olarak arşiv dosyasından çıkardığımız zaman manifestin okunur durumda olmadığını görebiliriz.
 
@@ -217,8 +170,65 @@ komutlarını çalıştırarak indirebiliriz. Kullancağımız android cihaza ba
 > frida-trace -U -i open* -I \*sqlite\*  process
 
 
-## 6.Dexcalibur
+## 6. Objection
+Runtime kullanılan mobil keşif aracıdır. Kullanım amacı, kullanıcının ana aksiyonlar çağırılabilmektedir.
+
+> pip install objection
+
+komutu ile kurulumu gerçekleşmektedir.  *--gadget* parametresine uygulama paket adı verilerek bağlantı sağlanmaktadır. Frida sunucusu bağlı olmalıdır. 
+
+>  objection --gadget com.package.name explore
+
+Komut çalıştırıldığında tab tuşuna basarak girilebilecek komutları ve açıklamaları listelenmektedir.
+
+![](../images/Pasted%20image%2020220331225036.png)
+
+Komutlar detaylı olarak incelenecektir. İlk olarak **android** komutuna göz atalım. Önemli olarak metod hooklama, intent listeleme gibi işlemleri yapabilir.  
+
+> android hooking lis activities 
+
+![](../images/Pasted%20image%2020220331225843.png)
+
+komutu uygulama içerisindeki aktiviteleri listelemektedir. Diğer alıcılar veya servisler gibi bileşenler ise activites kısmını değiştirerek listelenebilmektedir.
+
+
+## 7. Medusa
+https://github.com/Ch0pin/medusa/blob/master/MEDUSA-Usage-workflows.pdf
+
+## 8.Dexcalibur
 https://github.com/FrenchYeti/dexcalibur
+
+## Statik Analizde Kullanılan Araçlar
+### Androwarn
+[Androwarn](https://github.com/maaaaz/androwarn), Android uygulamalardaki zararlı işlemleri tespit eden python ile geliştirilmiş kod analiz aracıdır.Androguard aracına ihtiyaç duymaktadır. Yapılan analizi rapora çevirebilmektedir. Raporlar, txt, html ve json formatında oluşturulabilir.Özellikleri arasında telefon id,cihaz özellikleri çıkarımı, konum sızıntısı, telefon servislerinin kötüye kullanımı, isteğe bağlı kod çalıştırma ve uzaktan bağlantı kurulumu gibi buna benzer zararlı aktivitelerin analizleri yer almaktadır.
+
+> pip install androwarn 
+
+komutu ile veya github reposunu indirip 
+> pip install -r requirements.txt
+
+komutu çalıştırılarak yüklenebilir. Yükleme yapıldıktan sonra, `androwarn` komutu ile çalıştırılabilir. Gerekli paramatreler terminal çıktısında gösterilmektedir.
+
+![](../images/Pasted%20image%2020220403180813.png)
+
+`-i` parametresine analizi gerçekleşecek apk dosyası, `-v` detay seviyesi 1 temelden, 3 uzman yani çok daha detaylı verileri içermektedir. `-r` rapor formatını belirlemek için kullanılır. Temel kullanıma örnek olarak aşağıdaki komut çalıştırıldığında çıktı olarak  oluşturulan analiz raporun dizini verilmektedir.
+
+![](../images/Pasted%20image%2020220403181859.png)
+
+Oluşturulan detay seviyesi 3 olan rapor incelendiğinde  şekilde yer alan başlıklar bulunmaktadır.
+
+![](../images/Pasted%20image%2020220403182137.png)
+
+Kurulan şüpheli bağlantılar "Suspicious Connection Establishment" başlığında listelenmektedir.
+
+![](../images/Pasted%20image%2020220403182449.png)
+
+Fingerprint başlığında apk dosyasının hash bilgileri gösterilmektedir.
+
+![](../images/Pasted%20image%2020220403182350.png)
+
+Androidmanifest.xml başlığında manifest dosyası içerisinde sdk bilgisi, uygulama bileşenleri (aktivite,servis vs) ve uygulama izinleri yer almaktadır. 
+
 
 
 ## Otomatik Analiz yapan araçlar
@@ -266,10 +276,12 @@ Mobil cihaz içerisindeki dosya kalsörlerine erişim kolayca gerçekleşebilir.
 - SD Card,
 - Bulut hizmetleri,
 gibi birçok yerde güvensiz bir şekilde depolanabilir.
+
 Korunma yöntemleri:
 
 
-## 3. 
+## 3. Insecure Communication
+
 ---
 
 
@@ -323,7 +335,14 @@ gibi konular yer almaktadır.
 
 # 8 Other Topics
 ## Android Anti-Reversing Defenses
-Android uygulamasının analizini ve tersine mühendislik işlemlerini engellemek amaçlı kullanılan yöntemlerdir. Güncel android zararlı yazılımlar içerisinde de bu yöntemlerin kullanımı yüksektir. cihaz içerisinde root tespiti, debugging tespiti, tersine mühendislik araçlarının tespiti, emülator kullanımının tespiti gibi birçok yöntem bulunmaktadır.
+Android uygulamasının analizini ve tersine mühendislik işlemlerini engellemek amaçlı kullanılan yöntemlerdir. Güncel android zararlı yazılımlar içerisinde de bu yöntemlerin kullanımı yüksektir. Cihaz içerisinde root tespiti, debugging tespiti, tersine mühendislik araçlarının tespiti, emülator kullanımının tespiti gibi birçok yöntem bulunmaktadır. Bu gibi uygulamayı koruyan yöntemler şekilde gösterilmiştir. 
+
+![](../images/Pasted%20image%2020220331104207.png)
+
+Görsel Kaynak:(https://raw.githubusercontent.com/FrenchYeti/unrasp/main/Slides/Forging_golden_hammer_against_android_app_protections_INSO22_FINAL.pdf)
+
+Uygulamanın kodu, içeriği, ortamı ve ağ trafiğini koruyan araçların atlatma teknikleri de bulunmaktadır.
+
 
 ### 1. Testing Root Detection
 Android uygulamanın analizi ve tersine müendislik işlemlerinde kullanılan araçlar root izninde çalıştığı için bunu önlemek adına root tespiti yapılabilir. Tek başına etkili yöntem olmamakla beraber birden fazla yerde root cihaz kontrolünün yapılması uygulamayı test etmeyi zorlaştırabilmektedir. [Rootbeer](https://github.com/scottyab/rootbeer) aracı cihaz üzerinde root kontrolü yapar. Uygulama cihaza yüklenip çalıştığında görseldeki gibi root kontrolü yapmaktadır.
@@ -366,4 +385,5 @@ OWASP MSTG'nin hazırladığı Uncrackable 1 uygulama içerisinde root detection
 - [# Android Application Pentesting - Mystikcon 2020](https://www.youtube.com/watch?v=NrxTBcjAL8A)
 - [Android Anti-Reversing Defense](https://mobile-security.gitbook.io/mobile-security-testing-guide/android-testing-guide/0x05j-testing-resiliency-against-reverse-engineering)
 - [Comparison of Different Android Root-Detection Bypass Tools](https://medium.com/secarmalabs/comparison-of-different-android-root-detection-bypass-tools-8fd477251640)
--  
+-  [Forging Golden Hammer Against Android App Protections](https://raw.githubusercontent.com/FrenchYeti/unrasp/main/Slides/Forging_golden_hammer_against_android_app_protections_INSO22_FINAL.pdf)
+- 
