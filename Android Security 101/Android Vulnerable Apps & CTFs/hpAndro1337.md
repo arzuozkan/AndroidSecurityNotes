@@ -76,6 +76,7 @@ komutunu çalıştırdıktan sonra cihazları listeleyip bir tanesini seçmemizi
 ![](../../images/Pasted%20image%2020220420043413.png)
 
 Sonrasında hedef uygulamanın paket ismi seçiliyor.
+
 ![](../../images/Pasted%20image%2020220420043507.png)
 
 Bu aşamadan sonra birçok frida scriptlerini listeleyerek kullanılacak olan seçiliyor. Burada cihaz frida sunucusunu çalıştırıyor olması gerekiyor aksi durumda hata mesajı alınabilir bu konuda.
