@@ -9,7 +9,7 @@
 7. [Android Zararlı Yazılım Analizi](#Android%20Zararlı%20Yazılım%20Analizi)
 8. [Android Zararlı Yazılım Türleri](#Android%20Zararlı%20Yazılım%20Türleri)
 9. [Other Topics](#Other%20Topics)
-10. [Kaynak](#Kaynak)
+10. [Kaynaklar](../Kaynaklar.md)
 
 ---
 # Android Mimarisi
@@ -307,6 +307,7 @@ https://github.com/FrenchYeti/dexcalibur
 https://github.com/CYB3RMX/Qu1cksc0pe
 
 
+
 ## Statik Analizde Kullanılan Araçlar
 ### Androwarn
 [Androwarn](https://github.com/maaaaz/androwarn), Android uygulamalardaki zararlı işlemleri tespit eden python ile geliştirilmiş kod analiz aracıdır.Androguard aracına ihtiyaç duymaktadır. Yapılan analizi rapora çevirebilmektedir. Raporlar, txt, html ve json formatında oluşturulabilir.Özellikleri arasında telefon id,cihaz özellikleri çıkarımı, konum sızıntısı, telefon servislerinin kötüye kullanımı, isteğe bağlı kod çalıştırma ve uzaktan bağlantı kurulumu gibi buna benzer zararlı aktivitelerin analizleri yer almaktadır.
@@ -347,12 +348,12 @@ Androidmanifest.xml başlığında manifest dosyası içerisinde sdk bilgisi, uy
 ---
 
 # Android Zararlı Yazılım Analizi
-
+- [ ] #TODO 
 
 ---
 
 # Android Zararlı Yazılım Türleri
-- [ ] bilinen ve güncel zararlı yazılımların detaylı araştırılması yapılacak
+- [ ] #TODO bilinen ve güncel zararlı yazılımların detaylı araştırılması yapılacak
 ---
 
 # Other Topics
@@ -395,24 +396,4 @@ OWASP MSTG'nin hazırladığı Uncrackable 1 uygulama içerisinde root detection
 
 ---
 
-# Kaynak
-- [AndroidDeveloperDoc](https://developer.android.com/guide/components/fundamentals.html)
-- [Phone Forensics InfosecInstitute](https://resources.infosecinstitute.com/topic/practical-android-phone-forensics/)
-- [maddiestone](https://github.com/maddiestone)
-- [CS8038 Malware Analysis](https://class.malware.re/2020/04/18/android-intro-and-tools.html)
-- [AndoridChecklist](https://book.hacktricks.xyz/mobile-apps-pentesting/android-checklist)
-- [Get Started in Android Apps Pen-testing Part1](https://blog.securitybreached.org/2020/03/17/getting-started-in-android-apps-pentesting/)
-- [DIVA Tutorials](https://resources.infosecinstitute.com/topic/cracking-damn-insecure-and-vulnerable-app-diva-part-5/)
-- [Android Application Fundamentals](https://book.hacktricks.xyz/mobile-apps-pentesting/android-app-pentesting/android-applications-basics#2-android-application-fundamentals)
-- [# Android Application Pentesting - Mystikcon 2020](https://www.youtube.com/watch?v=NrxTBcjAL8A)
-- [Android Anti-Reversing Defense](https://mobile-security.gitbook.io/mobile-security-testing-guide/android-testing-guide/0x05j-testing-resiliency-against-reverse-engineering)
-- [Comparison of Different Android Root-Detection Bypass Tools](https://medium.com/secarmalabs/comparison-of-different-android-root-detection-bypass-tools-8fd477251640)
-- [Forging Golden Hammer Against Android App Protections](https://raw.githubusercontent.com/FrenchYeti/unrasp/main/Slides/Forging_golden_hammer_against_android_app_protections_INSO22_FINAL.pdf)
-- [MOBISEC Slides](https://mobisec.reyammer.io/slides)
-- [Mobile Security 0x01 | Android Temelleri /w @0xabc0](https://www.youtube.com/watch?v=LZUo09l441s)
-- [Mobile Security 0x02 | App Dev Serisi Part 2 /w Ahmet Bilal Can](https://www.youtube.com/watch?v=GQ7bwUOmVqk)
-- 
-
-
----
-
+# [Kaynaklar](../Kaynaklar.md)
