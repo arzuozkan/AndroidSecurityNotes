@@ -57,6 +57,7 @@ Root tespiti atlatmak için ben burada [9 Qu1cksc0pe All-in-One malware analysis
 ![](../../images/Pasted%20image%2020220420041823.png)
 
 - SU binary 
+
 ![](../../images/Pasted%20image%2020220420041916.png)
 
 - Test-keys 
