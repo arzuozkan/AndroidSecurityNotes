@@ -3,18 +3,18 @@ Uygulamayı açmadan önce manifest dosyası içerisinden paket ismi, uyumlu and
 
 **jadx** aracı ile apk dosyasını açıyorum. Hedef sdk versiyonu 25 ve paket ismi **com.tlamb96.spetsnazmessenger** .
 
-![](../../images/Pasted%20image%2020220322190827.png)
+![](../../../images/Pasted%20image%2020220322190827.png)
 
 İlgili dosya dizinine gelindiğinde 3 adet aktivitenin bulunduğunu görebiliriz.
 
-![](../../images/Pasted%20image%2020220322191311.png)
+![](../../../images/Pasted%20image%2020220322191311.png)
 
 MainActivity kodları incelendiğinde `onCreate` içerisinde sistem ortam değişkenleri kontrol edilmektedir. 
-![](../../images/Pasted%20image%2020220322191523.png)
+![](../../../images/Pasted%20image%2020220322191523.png)
 
 Uygulama çalıştırıldığında da **Integrity Error** şeklinde görseldeki gibi bir hata mesaj gösterilmektedir.
 
-![](../../images/Pasted%20image%2020220322190207.png)
+![](../../../images/Pasted%20image%2020220322190207.png)
 
 koşul ile kontrol edilen ifadenin koşulu sağlaması ile ekrana erişim sağlanmaktadır. Bunu atlatmanın birkaç yöntemi bulunmaktadır. Bunlardan biri de frida aracını kullanarak ilgili metodu ihtiyaca yönelik değiştirmek.
 
@@ -33,7 +33,7 @@ Değiştirilmesi gereken metotlar içerisinde,**System.getProperty**() ve **Syst
 
 ![](Pasted%20image%2020220323210522.png)
 
-Bu şekilde çalıştırıldığında uygulama şekildeki hatayı verecektir. Bu hatayı atlatmak için [görseldeki](../../images/Pasted%20image%2020220322191523.png) ilk **else if** koşulundaki  `R.string.USER` değerini almak gerekmektedir. 
+Bu şekilde çalıştırıldığında uygulama şekildeki hatayı verecektir. Bu hatayı atlatmak için [görseldeki](../../../images/Pasted%20image%2020220322191523.png) ilk **else if** koşulundaki  `R.string.USER` değerini almak gerekmektedir. 
 
 ![](Pasted%20image%2020220323210805.png)
 
@@ -47,30 +47,30 @@ python kodu çalıştırıldığında terminal çıktısında return edilen değ
 
 Elde edilen değeri `getenv()` içerisinde rastgele return edilen değer yerine yazılıp tekrar çalıştırıldığında uygulama içerisinde giriş sayfasına ulaşılmaktadır.
 
-![](../../images/Pasted%20image%2020220323212934.png)
+![](../../../images/Pasted%20image%2020220323212934.png)
 
 jadx ile LoginActivity sınıfı incelendiğinde giriş bilgilerinin **R.string.username** ve **R.string.password** şeklinde saklandığı anlaşılmaktadır. 
 
-![](../../images/Pasted%20image%2020220323213840.png)
+![](../../../images/Pasted%20image%2020220323213840.png)
 
 Görseldeki dizin takip edilerek strings.xml dosyası bulunabilir. Uygulama içerisinde kullanılan metinleri içermektedir. 
 
-![](../../images/Pasted%20image%2020220323213725.png)
-![](../../images/Pasted%20image%2020220324093004.png)
+![](../../../images/Pasted%20image%2020220323213725.png)
+![](../../../images/Pasted%20image%2020220324093004.png)
 
 Bulunan giriş değerlerini ekrana girdiğimiz zaman **Incorrect Password** 
 Password olarak kaydedilen değer hash değeri 
 olabilir ama 30 karakterli. Daha önce çözümü anlatılan blog yazılarında hash değerinin eksik olduğu görülmüştür. Çözüm olarak kullanıcı adını tarayıcı da aratarak şifre bulma yöntemi uygulanmıştır.
 
-![](../../images/Pasted%20image%2020220324111147.png)
+![](../../../images/Pasted%20image%2020220324111147.png)
 
 Aramada çıkan sonuçlar içerisinde çıkan PDF dosyası içerisinde şifre yer almaktadır.
 
-![](../../images/Pasted%20image%2020220324111228.png)
+![](../../../images/Pasted%20image%2020220324111228.png)
 
 Giriş yapıldığında mesajların olduğu bir ekran açılarak Toast mesajından flag değeri gösterilmektedir.
 
-![](../../images/Pasted%20image%2020220324112928.png)
+![](../../../images/Pasted%20image%2020220324112928.png)
 
 
 
