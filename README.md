@@ -1,5 +1,5 @@
-# MyAndroidSecurityNotes
-Android güvenliği ve güvenli android uygulama geliştirme ile ilgili incelenen araştırmalar ve çalışmalardan tuttuğum notları içeren bir repo
+# AndroidSecurityNotes
+Android güvenliği ve güvenli android uygulama geliştirme ile ilgili incelenen araştırmalar ve çalışmalardan tuttuğum türkçe notları içeren bir repo
 
 # İçindekiler
 - [AndroidSec](Android%20Security%20101/AndroidSec.md)
