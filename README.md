@@ -3,21 +3,21 @@ Android güvenliği ve güvenli android uygulama geliştirme ile ilgili incelene
 
 # İçindekiler
 - [AndroidSec](Android%20Security%20101/AndroidSec.md)
-- [ ]  #TODO 1. Android Mimarisi
-- [ ]  #TODO 2. Android Uygulama temelleri APK
-- [ ]  #TODO 3. Android Uygulama Pentesting Süreci
-- [ ]  #TODO 4. OWASP MOBILE TOP 10
-- [ ]  #TODO 5. Android Uygulama Güvenliği
-- [ ]  #TODO 6. Android analiz ortamı ve araçlar
-- [ ]  #TODO 7. Android Zararlı Yazılım Analizi
-- [ ]  #TODO 8. Android Zararlı Yazılım Türleri 
-- [ ] #TODO Other Topics
+- [ ]  1. Android Mimarisi
+- [ ]  2. Android Uygulama temelleri APK
+- [ ]  3. Android Uygulama Pentesting Süreci
+- [ ]  4. OWASP MOBILE TOP 10
+- [ ]  5. Android Uygulama Güvenliği
+- [ ]  6. Android analiz ortamı ve araçlar
+- [ ]  7. Android Zararlı Yazılım Analizi
+- [ ]  8. Android Zararlı Yazılım Türleri 
+- [ ]  Other Topics
 10. Kaynaklar
 - Vulnerable Apps & CTF's Walktroughs
-	- [ ]  #TODO Android App Hacking Challange
-	- [ ]  #TODO DIVA
-	- [ ]  #TODO hpAndro1337
-	- [ ]  #TODO InjuredAndroid
-	- [ ]  #TODO InsecureShop
-	- [x]  TODO KGB Messenger CTF
-- [ ]  #TODO Android Pentesting Environment
+	- [ ]  Android App Hacking Challange
+	- [ ]  DIVA
+	- [ ]  hpAndro1337
+	- [ ]  InjuredAndroid
+	- [ ]  InsecureShop
+	- [x]  KGB Messenger CTF
+- [ ] Android Pentesting Environment
