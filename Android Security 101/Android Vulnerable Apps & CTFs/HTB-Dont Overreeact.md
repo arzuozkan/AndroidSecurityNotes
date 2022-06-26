@@ -10,7 +10,7 @@ komutu ile genymotion emülatörüne bağlantıyı tespit edebiliriz. Eğer bağ
 
 jadx aracı ile apk dosyası açılıyor. Hedef sdk versiyonu 29, burada kullanılan emülatör Google Pixel 3 - 10.0 API 29.
 
-![](../../Pasted%20image%2020220419050514.png)
+![](../../images/Pasted%20image%2020220419050514.png)
 
 Bir adet aktivite mevcut. Paketin ismi,  **com.awesomeproject.MainActivity**. 
 
@@ -18,15 +18,15 @@ Bir adet aktivite mevcut. Paketin ismi,  **com.awesomeproject.MainActivity**.
 
 komutu ile uygulama emülatöre yüklenmektedir.
 
-![](../../Pasted%20image%2020220419050821.png)
+![](../../images/Pasted%20image%2020220419050821.png)
 
 Uygulama açıldığında aşağıdaki ekran görüntülenmektedir.
 
-![](../../Pasted%20image%2020220419051002.png)
+![](../../images/Pasted%20image%2020220419051002.png)
 
 MainActivity içerisinde **getMainComponentName()** fonksiyonu var. 
 
-![](../../Pasted%20image%2020220419051502.png)
+![](../../images/Pasted%20image%2020220419051502.png)
 
 
 - [ ] #TODO React reversing search 

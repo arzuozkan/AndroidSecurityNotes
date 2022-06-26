@@ -1,6 +1,6 @@
 # 0. İçindekiler
 
-1. [Android Mimarisi](#Android%20Mimarisi)
+1. [Android Mimarisi](#android-mimarisi)
 2. [Android Uygulama temelleri APK](AndroidSec.md#Android%20Uygulama%20temelleri%20APK)
 3. [Android Uygulama Pentesting Süreci](#Android%20Uygulama%20Pentesting%20Süreci)
 4. [OWASP MOBILE TOP 10](#OWASP%20MOBILE%20TOP%2010)
@@ -50,6 +50,11 @@ Kabaca 4 başlıkta incelenir,
 - Anti-exploitation
 
 
+**Uygulama İmazlama (App Signing)**
+
+Her uygulama bir sertifika ile imzalanmaktadır. Bu sertifika anahtarın sahibini tanımlamaktadır.
+Geliştirici public/private anahtarı oluşturur. Bu işlemin amacı sistem uygulamaları ile normal uygulamaları ayırmaktır. Uygulamalar aynı linux kullanıcı idsine sahip olmak isteyebiliyorlardı bunu da `android:sharedUserId` ile sağlayabiliyorlardı. Bu özellik API Level 29'da kullanımdan kaldırılmıştır. [Google manifest dökümanı](https://developer.android.com/guide/topics/manifest/manifest-element#uid) içerisinde bu özellik yerine bileşenlerin paylaşılmasında uygun servis veya içerik sağlayıcılarının kullanılmasını tavsiye etmektedir.
+
 ---
 # Android Uygulama temelleri, APK
 
@@ -71,6 +76,10 @@ Detaya inmeden Android APK içeriği aşağıdaki şekilde gösterilebilir.
 	> - ek kütüphaneler
 	> - dex dosyaları
 
+**Resources**
+Uygulama içerisinde kullanılan ek dosyalar, layoutlar ve valuesleri(strings.xml,colors.xml) içerir.
+
+
 **Dalvik vs Smali**
 Uygulama geliştirilirken Java veya Kotlin kodları DEX(Dalvik executable) bytekoda compile edilir yani dex formata dönüştürülür.
 Tersine mühendislik işlemlerinde ise DEX bytecode önce SMALI'ye yani Dalvik bytecodeun okunabilir haline getirilir, bu yüzden SMALI bytecode ile high level programlama dili arasındadır assembly gibi.
@@ -91,7 +100,10 @@ Uygulama çalışmadan önce sistem hangi bileşenlerin var olduğunu AndroidMan
 
 **Intents** 
 Uygulama içerisindeki bileşenlerin birbirleriyle veya diğer bir uygulamadaki bileşenle iletşim kurmasını sağlayan yapı olarak tanımlanır. Aktiviteyi başlatmak, sistemi değişiklikler için bilgilendirmek,servisler ile iletişimi gerçekleştirmek, contentProvider ile verilere erişmek gibi çeşitli işlerde kullanılmaktadır. İki türü bulunur, explicit  ve implicit intent. Explicit intent uygulama içerisindeki bileşenler arasındaki iletişimdir. Implicit intent ise, farklı bir uygulama ile ileişimi sağlamaktadır.
-Uygulamanın bunu anlayabilmesi için türünü belirleyen yapı `intent-filter` olarak isimlendirilir ve manifest içerisinde kullanılır.Bu yapı sayesinde hangi aktivite veya servis  karşılık vereceğini anlar. Intent-filter içeriği  \<action\> \<category\> ve \<data\> elementlerinden oluşur.
+Uygulamanın bunu anlayabilmesi için türünü belirleyen yapı `intent-filter` olarak isimlendirilir ve manifest içerisinde kullanılır.Bu yapı sayesinde hangi aktivite veya servis  karşılık vereceğini anlar. Intent-filter içeriği  \<action\> \<category\> ve \<data\> elementlerinden oluşur. 
+
+**Bundles**
+Intentler aracılığıyla verinin taşınmasını sağlayan yapılar. Veri anahtar/değer şeklinde depolanır. `bundle.putInt("key",intVal)` veya  `bundle.putString("key","val")` gibi taşınacak değerin tipine göre metotları kullanılmaktadır.
   
 **Uygulama Entrypointleri**
 - *Launcher Activity(Activity Başlangıcı)* uygulamanın açılmasıyla beraber başlamaktadır
@@ -99,16 +111,16 @@ Uygulamanın bunu anlayabilmesi için türünü belirleyen yapı `intent-filter`
 - *Broadcast Receiver(Alıcı)* kısaca dinleyiciler denilebilir.
 
 ### 1. Activities (Aktiviteler)
-Uygulamanın giriş noktası olarak da söylenebilir. Kullanıcılar ile etkileşime girilen ekran olan Aktiviteler uygulama içerisinde birden çok oluşturulabilir. Android geliştirici çerçevesinden bakıldığında, manifest dosyası içerisinde her aktivitenin \<activity\> tagi içerisinde tanımlanması gerekmektedir ve tanımlanır. Kendine ait yaşam döngüleri bulunur. Activitiy manager(aktivite yöneticisi) aracı ile başlatılabilir exported olduğu zaman. 
-- `android:exported` : değeri "true" ise aktivite başka uygulamalar tarafından başlatılabilmektedir yani cihazdaki herhangi uygulama kendi aktivite ismi ile erişebilir. Varsayılan değeri eğer intent-filter içermiyorsa "false"dur. 
-- `android:icon` : uygulamanın ikonunu belirler. Uygulama ikona sahip değilse normal bir uygulama olmayabilir.
-- 
+Uygulamanın giriş noktası olarak da söylenebilir. Kullanıcılar ile etkileşime girilen ekran olan Aktiviteler uygulama içerisinde birden çok oluşturulabilir. Android geliştirici çerçevesinden bakıldığında, manifest dosyası içerisinde her aktivitenin \<activity\> tagi içerisinde tanımlanır. Kendine ait yaşam döngüleri bulunur.  startActivity(intent) olarak bir aktivite başlatılabilir. Aktiviteler arası iletişim intentler aracılığı ile gerçekleştirilir.
 
 ### 2. Services (Servisler)
-Android işletim sistemi içerisinde veri işleme,bildirimler gibi arkaplanda çalışan görevleri yerine getirmektedir. Servisler, aktivitelere benzer olarak ana thread içerisinde çalışırlar ve kendi threadini oluşturamaz ayrıca belirtilmediği sürece farklı process üzerinde çalışmazlar.
+Android işletim sistemi içerisinde veri işleme,bildirimler gibi arkaplanda çalışan görevleri yerine getirmektedir. Servisler, aktivitelere benzer olarak ana thread içerisinde çalışırlar ve kendi threadini oluşturamaz ayrıca belirtilmediği sürece farklı process üzerinde çalışmazlar. 3 tür servis bulunur, background(arkaplan servisler), foreground(ön plan) ve bound(bağlı servisler).
+- [ ] Interprocess services via messengar
+- [ ] https://developer.android.com/guide/components/bound-services
 
+ 
 ### 3. Broadcast Receivers (Alıcılar)
-Sistem çapında bildirimleri yöneten yapıdır. Batarya zayıf olması,kulaklık girişi,mesaj iletildi gibi çeşitli olaylarda yayınlar(broadcast) gerçekleşir. Yayın almanın iki yolu vardır, manifest içerisinde tanımlama veya *registerReceiver* api çağrısını kullanarak dinamik olarak tanımlama. Genellikle arayüz güncelleme,servis başlatma ve kullanıcı bildirimleri oluşturmada kullanılır.
+Sistem çapında bildirimleri yöneten yapıdır. Batarya zayıf olması,kulaklık girişi,mesaj iletildi gibi çeşitli olaylarda yayınlar(broadcast) gerçekleşir.  *registerReceiver* api çağrısını kullanarak dinamik olarak tanımlanmaktadır. Genellikle arayüz güncelleme,servis başlatma ve kullanıcı bildirimleri oluşturmada kullanılır. 
 
 ### 4. Content Provider (İçerik Sağlayıcı)
 İçerik sağlayıcılar bir arayüz görevi görerek uygulamalar arası veri paylaşımı yapmanın bir yoludur. repository ile etkileşim içerisindedir. Uygulamanın verileri nereye depolayacağını, nasıl erişim sağlayacağını belirler. İçerik sağlayıcılar URI adresleme şeması araclığı ile **content://** olarak uygulanmaktadır.Veritabanı işlemlerine benzer olarak insert(), query(), update() ve delete() metotları bulunur. Çoğunlukla SQLite tabanlıdır.
@@ -138,6 +150,18 @@ Analiz aşamasında bakılması gereken noktalar,
 - API çağrıları
 - Uygulama Entrypointleri
 - Obfuscate edilmiş metotları decrypt etmek
+
+## Statik Analiz
+Android uygulamayı çalıştırmadan önce kod analizinde tespit edilebilecek bazı önemli noktalar bulunmkatadır. Bunlar listelenecek olursa,
+- Zayıf kriptografi kullanımı: kod içerisinde kriptolama ile ilgili kullanılan terim ve apiler grep komutu ile taranabilir. örneğin `grep -rli "aes" *` ,`SecretKeySpec` gibi.
+- export edilmiş aktiviteler
+- backup enabled: yedeklemenin açık olması, cihazdaki bilgilerin başka bilgisayara aktarılabilmesi anlamına gelebilir. Bu durum `android:allowBackup` ile tespit edilebilir. False değerde olması gerekir uygulamada.
+- debuggable apps:
+- uygulama izinleri
+- firebase instance: firebase tarayıcı araçları kullanılabilir yanlış yapılandırılan firebase örnekleri bulunabilir.
+- kod içerisindeki hassas bilgiler
+(referans:[THM:AndroidHacking101](https://tryhackme.com/room/androidhacking101))
+
 
 
 
@@ -242,15 +266,22 @@ Bazı adb komutları,
 
 > adb root : root yetkilerinde çalışmak için
 
+> adb logcat: uygulama logları incelenir
+
+> adb shell am start -n <packagename\>/ \<component\ >  : activity manager ile verlien aktiviteyi başlatır
+
+> adb shell pm grant <packagename\> <permission\> : packagemanager ile paket izinleri verilebilir
+
+> adb shell dumpsys : 
 
 ## 2. jadx
 jadx aracı,apk dosya içeriğini decode ederek dex dosyalarını okunabilir hale dönüştürmektedir. apktool ve dex2jar araçları ile aynı işlevi gerçekleştirirler.
 
 ## 3. apktool
-apktool aracı, APK dosyaların decompile ederek paketinden çıkarmaktadır. Bu sayede Manifest dosyası okunabilir duruma gelir. Normal olarak arşiv dosyasından çıkardığımız zaman manifestin okunur durumda olmadığını görebiliriz.
+apktool aracı, APK dosyaların decompile ederek paketinden çıkarmaktadır. Bu sayede Manifest dosyası okunabilir duruma gelir. Normal olarak arşiv dosyasından çıkardığımız zaman manifestin okunur durumda olmadığını görebiliriz. **smali/baksmali** araçlarını içerir. 
 
 ## 4 dex2jar
-classes.dex dosyasını jar dosyasına çevirir. Bu sayede jd-gui gibi araçlar kullanrak java kodları okunabilir.
+classes.dex dosyasını jar dosyasına çevirir. Bu sayede jd-gui gibi araçlar kullanrak java kodları okunabilir.dalvik bytecodunu decompile eder
 
 ## 5. Frida 
 Birçok işletim sistemleriyle uyumlu çalışabilir ve bu sistemlerin içerisinde bulunan uygulamaların içerdiği fonksiyonların çalışmasını değiştirebilmek gibi faklı amaçlar için kullanılan araç takımıdır. Sistem içerisindeki çalışan processleri analiz edebilir. Dinamik analiz sürecinde kullanılır. Uygulama içerinsine JavaScript kodu injecte etmektedir. Bunun dışında,
@@ -347,8 +378,14 @@ Androidmanifest.xml başlığında manifest dosyası içerisinde sdk bilgisi, uy
 
 ---
 
-# Android Zararlı Yazılım Analizi
+# Android Zararlı Yazılım
 - [ ] #TODO 
+
+Zararlı yazılım geliştiricilerin kullandığı yönemler
+- Reflection (zararlı metotların string şeklinde yazılması)
+- Dinamik Kod yükleme (Dynamic code loading)
+- Serialization, objeyi string olarak encode işlemi (Parcelable ve Serializable arayüzleri)
+- Native Code 
 
 ---
 
