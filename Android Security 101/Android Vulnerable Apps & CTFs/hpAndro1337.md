@@ -45,8 +45,8 @@ Yine aynı şekilde https traffic sayfasını açıp istekleri takip ettiğimiz 
 ![](../../images/Pasted%20image%2020220327124350.png)
 
 ## Root Detection
-Cihaz root tespitinde kullanılan yöntemler [Other Topics](../AndroidSec.md#Other%20Topics) içerisinde detaylı olarak bahsedilmektedir. Root cihaz tespitini atlatmak için birçok araç ve yöntem bulunmaktadır. En basit yöntem frida ile metotları hooklamak. Bunun için yazılmış olan frida scriptleri mevcut. 
-Root tespiti atlatmak için ben burada [9 Qu1cksc0pe All-in-One malware analysis tool ](../AndroidSec.md#9%20Qu1cksc0pe%20All-in-One%20malware%20analysis%20tool) isimli dosya analiz aracı içerisindeki runtime modülünü kullandım. Bu modül sayesinde apk dosyalarının dinamik olarak analizi yapılabilmektedir.
+Cihaz root tespitinde kullanılan yöntemler [Other Topics](../Android%20Security.md#Other%20Topics) içerisinde detaylı olarak bahsedilmektedir. Root cihaz tespitini atlatmak için birçok araç ve yöntem bulunmaktadır. En basit yöntem frida ile metotları hooklamak. Bunun için yazılmış olan frida scriptleri mevcut. 
+Root tespiti atlatmak için ben burada [9 Qu1cksc0pe All-in-One malware analysis tool ](../Android%20Security.md#9%20Qu1cksc0pe%20All-in-One%20malware%20analysis%20tool) isimli dosya analiz aracı içerisindeki runtime modülünü kullandım. Bu modül sayesinde apk dosyalarının dinamik olarak analizi yapılabilmektedir.
 
 - Root Management task
 

@@ -1,7 +1,7 @@
 # 0. İçindekiler
 
 1. [Android Mimarisi](#android-mimarisi)
-2. [Android Uygulama temelleri APK](AndroidSec.md#Android%20Uygulama%20temelleri%20APK)
+2. [Android Uygulama temelleri APK](Android%20Security.md#Android%20Uygulama%20temelleri%20APK)
 3. [Android Uygulama Pentesting Süreci](#Android%20Uygulama%20Pentesting%20Süreci)
 4. [OWASP MOBILE TOP 10](#OWASP%20MOBILE%20TOP%2010)
 5. [Android Uygulama Güvenliği](#Android%20Uygulama%20Güvenliği)

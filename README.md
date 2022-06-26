@@ -12,7 +12,7 @@ Android güvenliği ve güvenli android uygulama geliştirme ile ilgili incelene
 
 
 # İçindekiler
-- [AndroidSec](Android%20Security%20101/AndroidSec.md)
+- [Android Security](Android%20Security%20101/Android%20Security.md)
 - [ ]  1. Android Mimarisi
 - [ ]  2. Android Uygulama temelleri APK
 - [ ]  3. Android Uygulama Pentesting Süreci
