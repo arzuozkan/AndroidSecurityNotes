@@ -1,15 +1,15 @@
 # 0. İçindekiler
 
-1. [Android Mimarisi](#android-mimarisi)
-2. [Android Uygulama temelleri APK](Android%20Security.md#Android%20Uygulama%20temelleri%20APK)
-3. [Android Uygulama Pentesting Süreci](#Android%20Uygulama%20Pentesting%20Süreci)
-4. [OWASP MOBILE TOP 10](#OWASP%20MOBILE%20TOP%2010)
-5. [Android Uygulama Güvenliği](#Android%20Uygulama%20Güvenliği)
-6. [Android analiz ortamı ve araçlar](#Android%20analiz%20ortamı%20ve%20araçlar)
-7. [Android Zararlı Yazılım Analizi](#Android%20Zararlı%20Yazılım%20Analizi)
-8. [Android Zararlı Yazılım Türleri](#Android%20Zararlı%20Yazılım%20Türleri)
-9. [Other Topics](#Other%20Topics)
-10. [Kaynaklar](../Kaynaklar.md)
+1. Android Mimarisi
+2. Android Uygulama temelleri APK
+3. Android Uygulama Pentesting Süreci
+4. OWASP MOBILE TOP 10
+5. Android Uygulama Güvenliği
+6. Android analiz ortamı ve araçlar
+7. Android Zararlı Yazılım Analizi
+8. Android Zararlı Yazılım Türleri
+9. Diğer Konular
+10. Kaynaklar
 
 ---
 # Android Mimarisi
@@ -317,13 +317,13 @@ komutu ile kurulumu gerçekleşmektedir.  *--gadget* parametresine uygulama pake
 
 Komut çalıştırıldığında tab tuşuna basarak girilebilecek komutları ve açıklamaları listelenmektedir.
 
-![](../images/Pasted%20image%2020220331225036.png)
+![](images/Pasted%20image%2020220331225036.png)
 
 Komutlar detaylı olarak incelenecektir. İlk olarak **android** komutuna göz atalım. Önemli olarak metod hooklama, intent listeleme gibi işlemleri yapabilir.  
 
 > android hooking lis activities 
 
-![](../images/Pasted%20image%2020220331225843.png)
+![](images/Pasted%20image%2020220331225843.png)
 
 komutu uygulama içerisindeki aktiviteleri listelemektedir. Diğer alıcılar veya servisler gibi bileşenler ise activites kısmını değiştirerek listelenebilmektedir.
 
@@ -350,23 +350,23 @@ komutu ile veya github reposunu indirip
 
 komutu çalıştırılarak yüklenebilir. Yükleme yapıldıktan sonra, `androwarn` komutu ile çalıştırılabilir. Gerekli paramatreler terminal çıktısında gösterilmektedir.
 
-![](../images/Pasted%20image%2020220403180813.png)
+![](images/Pasted%20image%2020220403180813.png)
 
 `-i` parametresine analizi gerçekleşecek apk dosyası, `-v` detay seviyesi 1 temelden, 3 uzman yani çok daha detaylı verileri içermektedir. `-r` rapor formatını belirlemek için kullanılır. Temel kullanıma örnek olarak aşağıdaki komut çalıştırıldığında çıktı olarak  oluşturulan analiz raporun dizini verilmektedir.
 
-![](../images/Pasted%20image%2020220403181859.png)
+![](images/Pasted%20image%2020220403181859.png)
 
 Oluşturulan detay seviyesi 3 olan rapor incelendiğinde  şekilde yer alan başlıklar bulunmaktadır.
 
-![](../images/Pasted%20image%2020220403182137.png)
+![](images/Pasted%20image%2020220403182137.png)
 
 Kurulan şüpheli bağlantılar "Suspicious Connection Establishment" başlığında listelenmektedir.
 
-![](../images/Pasted%20image%2020220403182449.png)
+![](images/Pasted%20image%2020220403182449.png)
 
 Fingerprint başlığında apk dosyasının hash bilgileri gösterilmektedir.
 
-![](../images/Pasted%20image%2020220403182350.png)
+![](images/Pasted%20image%2020220403182350.png)
 
 Androidmanifest.xml başlığında manifest dosyası içerisinde sdk bilgisi, uygulama bileşenleri (aktivite,servis vs) ve uygulama izinleri yer almaktadır. 
 
@@ -397,7 +397,7 @@ Zararlı yazılım geliştiricilerin kullandığı yönemler
 ## Android Anti-Reversing Defenses
 Android uygulamasının analizini ve tersine mühendislik işlemlerini engellemek amaçlı kullanılan yöntemlerdir. Güncel android zararlı yazılımlar içerisinde de bu yöntemlerin kullanımı yüksektir. Cihaz içerisinde root tespiti, debugging tespiti, tersine mühendislik araçlarının tespiti, emülator kullanımının tespiti gibi birçok yöntem bulunmaktadır. Bu gibi uygulamayı koruyan yöntemler şekilde gösterilmiştir. 
 
-![](../images/Pasted%20image%2020220331104207.png)
+![](images/Pasted%20image%2020220331104207.png)
 
 Görsel Kaynak:(https://raw.githubusercontent.com/FrenchYeti/unrasp/main/Slides/Forging_golden_hammer_against_android_app_protections_INSO22_FINAL.pdf)
 
@@ -407,7 +407,7 @@ Uygulamanın kodu, içeriği, ortamı ve ağ trafiğini koruyan araçların atla
 ### 1. Testing Root Detection
 Android uygulamanın analizi ve tersine müendislik işlemlerinde kullanılan araçlar root izninde çalıştığı için bunu önlemek adına root tespiti yapılabilir. Tek başına etkili yöntem olmamakla beraber birden fazla yerde root cihaz kontrolünün yapılması uygulamayı test etmeyi zorlaştırabilmektedir. [Rootbeer](https://github.com/scottyab/rootbeer) aracı cihaz üzerinde root kontrolü yapar. Uygulama cihaza yüklenip çalıştığında görseldeki gibi root kontrolü yapmaktadır.
 
-![](../images/Pasted%20image%2020220327142501.png)
+![](images/Pasted%20image%2020220327142501.png)
 
 Root cihaz tespiti için kontrol noktaları,
 - Test-keys: test anahtarları için build propertylerin (`android.os.BUILD.TAGS`) gözden geçirilmesi
@@ -417,19 +417,19 @@ Root cihaz tespiti için kontrol noktaları,
 
 OWASP MSTG'nin hazırladığı Uncrackable 1 uygulama içerisinde root detection konusu ele alınmıştır. jadx aracı ile apk dosyası açıldığında MainActivity içerisinde bazı fonksiyonlar ile root durumu kontrol edilmektedir.
 
-![](../images/Pasted%20image%2020220327232924.png)
+![](images/Pasted%20image%2020220327232924.png)
 
 İlgili sınıf içerisi incelendiğinde, root tespiti için yukarıda bahsedilen yöntemlerin birkaçının kullanıldığı görülmektedir.  `a()` metodunda, su isimli dosya dizinleri kontrol edilmektedir.
 
-![](../images/Pasted%20image%2020220327233340.png)
+![](images/Pasted%20image%2020220327233340.png)
 
  `b()` metodu içerisinde test-keylerin kontrolü yapılmaktadır.
  
-![](../images/Pasted%20image%2020220327233521.png)
+![](images/Pasted%20image%2020220327233521.png)
 
  `c()` metodunda ise root uygulaması ve dizinlerinin varlığınin tespiti yapılmaktadır.
 
-![](../images/Pasted%20image%2020220327233658.png)
+![](images/Pasted%20image%2020220327233658.png)
 
 ---
 
