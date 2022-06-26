@@ -8,11 +8,11 @@ Android güvenliği ve güvenli android uygulama geliştirme ile ilgili incelene
  ![new](https://user-images.githubusercontent.com/48025290/175822659-4a83d20b-8a41-4064-bf6e-7873b50b5e47.png) 
  
 
-- Starting to solve Beetlebug ctf - [Beetlebug](https://github.com/arzuozkan/AndroidSecurityNotes/blob/main/Android%20Security%20101/Android%20Vulnerable%20Apps%20%26%20CTFs/BeetleBug.md)
+- Starting to solve Beetlebug ctf - [Beetlebug](https://github.com/arzuozkan/AndroidSecurityNotes/blob/main/Android%20Vulnerable%20Apps%20%26%20CTFs/BeetleBug.md)
 
 
 # İçindekiler
-- [Android Security](Android%20Security%20101/Android%20Security.md)
+- [Android Security](Android%20Security.md)
 	- [ ]  1. Android Mimarisi
 	- [ ]  2. Android Uygulama temelleri APK
 	- [ ]  3. Android Uygulama Pentesting Süreci
