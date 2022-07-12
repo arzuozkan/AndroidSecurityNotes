@@ -55,6 +55,8 @@ Kabaca 4 başlıkta incelenir,
 Her uygulama bir sertifika ile imzalanmaktadır. Bu sertifika anahtarın sahibini tanımlamaktadır.
 Geliştirici public/private anahtarı oluşturur. Bu işlemin amacı sistem uygulamaları ile normal uygulamaları ayırmaktır. Uygulamalar aynı linux kullanıcı idsine sahip olmak isteyebiliyorlardı bunu da `android:sharedUserId` ile sağlayabiliyorlardı. Bu özellik API Level 29'da kullanımdan kaldırılmıştır. [Google manifest dökümanı](https://developer.android.com/guide/topics/manifest/manifest-element#uid) içerisinde bu özellik yerine bileşenlerin paylaşılmasında uygun servis veya içerik sağlayıcılarının kullanılmasını tavsiye etmektedir.
 
+Sistem uygulamaları  android paketinde "sistem" sertifikası ile imzalanmıştır
+
 ---
 # Android Uygulama temelleri, APK
 
@@ -71,8 +73,8 @@ Detaya inmeden Android APK içeriği aşağıdaki şekilde gösterilebilir.
 > lib/
 	> - uygulama için kullanılan yerel kütüphaneler burada bulunur.
 
-> assets/
-	> - uygulama için gerekli diğer dosyalar
+> assets/, /res
+	> - uygulama için gerekli diğer dosyalar kaynaklar,strings gibi
 	> - ek kütüphaneler
 	> - dex dosyaları
 
@@ -151,18 +153,32 @@ Analiz aşamasında bakılması gereken noktalar,
 - Uygulama Entrypointleri
 - Obfuscate edilmiş metotları decrypt etmek
 
+## Reversing An APK
+Etkili tersine mühendislik işlemleri için hedef belirlemek gereklidir
+- Uygulama ne yapıyor
+- uygulama network ile nasıl etkileşime geçiyor (IP adresleri veya url bağlantıları bulmaya çalışmak, network aktiviteleri gözlemlemek)
+- hassas bilgiler nasıl depolanıyor
+- içerdiği bir fonksiyon kötüye kullanılabiliyor mu
+- uygulamaya saldırı yöntemlerini keşfetmek (mainActivity, uygulama bileşenlerine bakmak)
+gibi çeşitli bilgileri edinmek gerekmektedir.
+İlk aşamada uygulamayı ve işlevlerini kullanıcı gözüyle keşfetmek ve saldırı yüzeyinin analizini gerçekleştirmek 
+
+
 ## Statik Analiz
 Android uygulamayı çalıştırmadan önce kod analizinde tespit edilebilecek bazı önemli noktalar bulunmkatadır. Bunlar listelenecek olursa,
 - Zayıf kriptografi kullanımı: kod içerisinde kriptolama ile ilgili kullanılan terim ve apiler grep komutu ile taranabilir. örneğin `grep -rli "aes" *` ,`SecretKeySpec` gibi.
 - export edilmiş aktiviteler
 - backup enabled: yedeklemenin açık olması, cihazdaki bilgilerin başka bilgisayara aktarılabilmesi anlamına gelebilir. Bu durum `android:allowBackup` ile tespit edilebilir. False değerde olması gerekir uygulamada.
-- debuggable apps:
 - uygulama izinleri
 - firebase instance: firebase tarayıcı araçları kullanılabilir yanlış yapılandırılan firebase örnekleri bulunabilir.
 - kod içerisindeki hassas bilgiler
+- 
 (referans:[THM:AndroidHacking101](https://tryhackme.com/room/androidhacking101))
 
-
+## Dinamik Analiz
+Uygulamayı çalıştırmak ve run-timeda uygulamada neler oluyor gözlemlemek. İki ana teknik kullanılıyor, debugging ve instrumentation
+**Debugging:** uygulamayı çalıştırıp bir hata ayıklayıcısına iliştirmek. Debugger yardımı ile değişkenlerin hafızadaki konumları tespit edilebilir veya istenilen noktaya ulaşıldığında uygulamayı durdurabilir gibi işlemler gerçekleşebilir.
+**Instrumentation:** isimli teknikte işler biraz daha farklı ilerlemektedir. Burada uygulama düzenlenmiş veya özelleştirilmiş bir ortamda çalıştırılıyor. Her API çağrısı izleniyor, tüm stringler loglanıyor ve belirli koşullar sağlandığında dökümü alınabiliyor. Manuel olarak yapıldığında, smali kodunun uygulamaya enjekte edilerek uygulama düzenlenebilir. Bu işlemleri otomatik olarak gerçekleştiren frameworkler kullanılmaktadır. Frida framework ile uygulama içerisine kod enjekte edilebilir. XPosed, sistem uygulamalarını da özelleştirmek için kullanılır.
 
 
 

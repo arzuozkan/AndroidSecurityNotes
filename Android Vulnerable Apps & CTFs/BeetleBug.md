@@ -106,7 +106,86 @@ burada listelenen *databases* dizini altında uygulamaya ait veritabanı bulunma
 
 
 ## 3.  Webviews
+Webview, uygulama içerisinde kullanıcıya web içeriklerini iletmek için kullanılan objeler olarak kulllanılır.
+
 ### 3.1 Load Arbitrary Url
+AndroidManifest dosyası içerisinde VulnerablaWebView aktivitesinin export edilmiş olduğu görülmektedir.
+
+![](../images/Pasted%20image%2020220711124658.png)
+
+Burada aktivite içerisindeki kodlar incelendiğinde, `loadWebView()` fonksiyonu içerisinde ilgili intent içerisinde gelen string ile url bağlantısını gerçekleştiriyor[1]. Basitçe bir intent yardımıyla uygulamada çalışacak bir url stringi gönderiliyor. 
+
+![](../images/Pasted%20image%2020220711125000.png)
+
+Verilen ipucunda, `adb` ile zararlı sayfayı uygulama içerisinde açılabileceği belirtiliyor. `adb shell` komutu ile cihazda shell açtıktan sonra `am start` ( am = activity manager) komutununu kullanarak export edilmiş aktivite dışarıdan veya uygulamadan bağımsız olarak başlatılabilmektedir. `-n` parametresine paket_ismi / aktivite_yolu olarak değerler verilmektedir. `-es` parametresi extra değerler (getStringExtra(), getExtra() vs. ) için kullanılmaktadır. reg_url verilen url değerine bağlantı gerçekleştirilir.
+ 
+>am start -n app.beetlebug/.ctf.VulnerableWebView -es reg_url "malicious.site"
+
+![](../images/Pasted%20image%2020220711152757.png)
+
+Yukarıdaki komutu çalıştırdıktan sonra uygulama içerisinde bağlantı adresine ait sayfanın açıldığı gözlemlenmektedir. Örneğin google.com adresini girdiğimiz zaman, uygulama görüntüsü şekildeki gibidir.
+
+![](../images/Pasted%20image%2020220711153802.png)
+
+Burada istenen flag değeri kod içerisinde de görüldüğü gibi `file:///android_asset/pwn.html` sayfasının içerisinde bulunmaktadır.
+
+![](../images/Pasted%20image%2020220711154001.png)
+
+![](../images/Pasted%20image%2020220711154329.png)
+
+Bu yöntem intent-filter yardımıyla export edilmiş bileşenler için çalışmayabilir. Aktivitenin direkt olarak exported edilmiş olması gerekir (androd:exported= true şeklinde).
+
 ### 3.2 Javascript Code Injection
+- [ ] TODO 
+
+## 4. Insecure Databases
+### 4.1 SQL Injection
+jadx ile SQLInjectionActivity kodları incelendiğinde aktivite içerisinde direkt olarak veritabanı oluşturulup, kullanıcıların manuel şekilde açık metin olarak eklendiği görülmektedir.
+
+![](../images/Pasted%20image%2020220711163257.png)
+
+Normalde diğer uygulamalar veya zararlı yazılımlarda okunur durumda olmayabilir. Kod obfuscated edilmiş olabilir veya verilen değerler encoded olabilir. Bu yüzden başka bir yoldan soruyu çözmeye çalışalım.
+
+Burada, input olarak girilen değer, direkt olarak SQL sorgusu içerisine eklenmektedir. Bu durum sayesinde input olarak başka sorgular çalıştırılabilmektedir.
+
+![](../images/Pasted%20image%2020220711164007.png)
+
+`WHERE user = '"` kısmında eşitliğin sağlanması durumunda kullanıcı bilgileri çıktı olarak verilmektedir. Burada kendi payloadımızı da oluşturabiliriz veya internetten de bulup kullanabiliriz[2]. 
+
+input değere `' or '1` payloadı girildiği zaman kullanıcılar listelenmektedir. beetle-bug kullanıcısı flag değerini içermektedir.
+
+![](../images/Pasted%20image%2020220711165251.png)
+
+### 4.2 Firebase Misconfiguration
+Firebase veritabanının yanlış konfigure edilmesi kullanıcı bilgilerine yetkisiz kullanıcının erişmesini sağlayabilir.
+
+- [ ] TODO
+
+## 5. Android Components
+### 5.1 Unprotected Activity
+
+![](../images/Pasted%20image%2020220711190628.png)
+
+Login butonuna tıklandığında başka ekrana yönlendiren ve export edilmiş aktivite gerekli olduğu ipucu olarak verilmiş. Burada `adb` komutu ile export edilmiş aktivite başlatılabilmektedir. Farklı araçlar da kullanılabilir.
+
+AndroidManifest dosyası içerisinde export edilmiş ilgili aktiviteyi araştıralım. `b33tlebugAdministrator` isimli bir aktivite var.
+
+![](../images/Pasted%20image%2020220711191127.png)
+
+`adb shell am start -n app.beetlebug/.ctf.b33tleAdministrator` komutunu çalıştırıyoruz 
+
+![](../images/Pasted%20image%2020220711191359.png)
+
+![](../images/Pasted%20image%2020220711191421.png)
+
+Admin paneli ekranı içerisinde en alt kısımda flag değeri bulunmaktadır. b33tlebugAdministrator aktivitesi exported olduğu için uygulamanın akışından bağımsız çalıştırarak farklı bölümlere erişim sağlayabiliyoruz.
+
+### 5.2 Vulnerable Service
 
 
+### 5.3 Vulnerable Content Provider
+
+## Kaynaklar
+1. https://medium.com/mobis3c/exploiting-android-webview-vulnerabilities-e2bcff780892
+2. https://github.com/payloadbox/sql-injection-payload-list
+3. 
