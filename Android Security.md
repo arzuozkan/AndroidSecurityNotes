@@ -49,6 +49,12 @@ Kabaca 4 başlıkta incelenir,
 - Network Security
 - Anti-exploitation
 
+>Software isolation: her uygulama farklı bir kullanıcı gibi değerlendirilir ve bir diğerinden  ayrı tutulur. Bu yaklaşım, **sandboxing** olarak adlandırılır. Uygulama dosyaları /data/data içerisinde bulunur. İsimlendirme yapılırken 
+>- `/data/data/package-name-num/` (Android 7)
+>- `/data/data/package-name-B64encodedrandombytes` (Android 8)
+>şeklindedir. Sistem dosyaları **/system/app** dizini altında yer alır.
+
+
 
 **Uygulama İmazlama (App Signing)**
 

@@ -15,6 +15,7 @@
 - [MOBISEC Slides](https://mobisec.reyammer.io/slides)
 - [Mobile Security 0x01 | Android Temelleri /w @0xabc0](https://www.youtube.com/watch?v=LZUo09l441s)
 - [Mobile Security 0x02 | App Dev Serisi Part 2 /w Ahmet Bilal Can](https://www.youtube.com/watch?v=GQ7bwUOmVqk)
-- 
+- https://valsamaras.medium.com/android-security-workshop-5eadeb50fba
+
 
 
