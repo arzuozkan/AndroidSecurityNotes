@@ -68,10 +68,9 @@ Terminal üzerinden `adb shell` komutunu kullanarak cihaz üzerine bağlanabilir
 
 Burada mail adresi ve parolayı kaydettiğimiz zaman ekranda bir toast mesajı belirmektedir. Verilerin saklandığı dosya yolu ve dosya ismi verilmiştir. Terminal üzerinden cihaza `adb shell` komutu ile erişim sağlanmaktadır. 
 
-**Note: *storage/emulated/0/documents/* dizini içerisinde user.txt dosyası oluşmamış 
-#TODO sebebini araştırcam
+![image](https://github.com/arzuozkan/AndroidSecurityNotes/assets/48025290/f40732f6-77d6-4de6-a81c-8c089b8066f5)
 
-user.txt dosyasını bulamadım. InsecureStorageExternal aktivite kaynak kodları incelendiğinde girilen bilgilerin kaydedildiği bölüm bulunmaktadır. Flag değeri açık metin olarak verilmektedir.
+Diğer bir yolda ise InsecureStorageExternal aktivite kaynak kodları incelenebilir ve  girilen bilgilerin kaydedildiği bölüm bulunur. Flag değeri açık metin olarak verildiğini görebiliriz.
 
 ![](../images/Pasted%20image%2020220626174128.png)
 
@@ -127,7 +126,7 @@ Yukarıdaki komutu çalıştırdıktan sonra uygulama içerisinde bağlantı adr
 
 ![](../images/Pasted%20image%2020220711153802.png)
 
-Burada istenen flag değeri kod içerisinde de görüldüğü gibi `file:///android_asset/pwn.html` sayfasının içerisinde bulunmaktadır.
+Burada istenen flag değeri kod içerisinde de görüldüğü gibi `file:///android_asset/pwn.html` sayfasının içerisinde bulunmaktadır. (Güncelleme aktif olarak verilen bağlantı adresinde görsel bulunmuyor)
 
 ![](../images/Pasted%20image%2020220711154001.png)
 
@@ -136,7 +135,16 @@ Burada istenen flag değeri kod içerisinde de görüldüğü gibi `file:///andr
 Bu yöntem intent-filter yardımıyla export edilmiş bileşenler için çalışmayabilir. Aktivitenin direkt olarak exported edilmiş olması gerekir (androd:exported= true şeklinde).
 
 ### 3.2 Javascript Code Injection
-- [ ] TODO 
+
+Bu bölümde, javascript kodu çalıştırarak XSS zafiyetini kullanarak flag değerini elde edeceğiz. Basit bir şekilde `<script>alert("XSS");</script>` payload kullanılabilir.
+
+![image](https://github.com/arzuozkan/AndroidSecurityNotes/assets/48025290/3964fa8f-1a64-4414-9545-9c8d1973faef)
+
+Açılan pop-up mesajı kapattıktan sonra flag değerine erişebiliyoruz.
+
+![image](https://github.com/arzuozkan/AndroidSecurityNotes/assets/48025290/c268640a-e43c-4d7e-a32e-502b1a9841b2)
+
+
 
 ## 4. Insecure Databases
 ### 4.1 SQL Injection
@@ -157,9 +165,15 @@ input değere `' or '1` payloadı girildiği zaman kullanıcılar listelenmekted
 ![](../images/Pasted%20image%2020220711165251.png)
 
 ### 4.2 Firebase Misconfiguration
-Firebase veritabanının yanlış konfigure edilmesi kullanıcı bilgilerine yetkisiz kullanıcının erişmesini sağlayabilir.
+Firebase veritabanının yanlış konfigure edilmesi kullanıcı bilgilerinin açığa çıkması ve yetkisiz erişimlere sebebiyet verebilir. Burada ilk kontrol edilecek kısım strings.xml dosyası olabilir. Çünkü burada yanlışlıkla bırakılmış bağlantı adresleri, api anahtarları ve token değerleri olabilir.
 
-- [ ] TODO
+![image](https://github.com/arzuozkan/AndroidSecurityNotes/assets/48025290/5b055800-aea7-4e1b-ae98-cc1204eb11f6)
+
+Bulduğumuz firebase proje adresini ipucunda da verilmiş olan /.json dizinine göz atalım.
+
+![image](https://github.com/arzuozkan/AndroidSecurityNotes/assets/48025290/18a22b35-f22a-49f8-a2ab-e3eab69a4a29)
+
+yapılan ayarları erişim bilgileri ve diğer hassas bilgilere erişim sağlanabildi. Eğer doğru bir şekilde yapılandırılsaydı içeriği görme iznine sahip olunmazdı ve "Permission Denied" hatası verebilir veya null olarak görülebilirdi. Firebase veritabanı enumeration ve keşif aşaması için çeşitli araçlar kullanılmaktadır [3].
 
 ## 5. Android Components
 ### 5.1 Unprotected Activity
@@ -181,11 +195,46 @@ AndroidManifest dosyası içerisinde export edilmiş ilgili aktiviteyi araştır
 Admin paneli ekranı içerisinde en alt kısımda flag değeri bulunmaktadır. b33tlebugAdministrator aktivitesi exported olduğu için uygulamanın akışından bağımsız çalıştırarak farklı bölümlere erişim sağlayabiliyoruz.
 
 ### 5.2 Vulnerable Service
+Servis bileşeni arkaplanda çalışan bir arayüze sahip olmayan programlardır. Başka uygulamalar tarafından çağrılabilir, dışarıdan erişilebilir özelliklerine sahiptir. Yanlış kullanımı zafiyetlere yol açabilir. exported özelliği aktif halde olması uygulama dışından da erişilebileceğini belirtir.
 
+`adb shell am startservice -n app.beetlebug/.handlers.VulnerableService ` komutu ile komut ekranından servisi başlatabiliriz.
+
+![image](https://github.com/arzuozkan/AndroidSecurityNotes/assets/48025290/ac921cfb-fb5c-4db2-98eb-019b209a3588)
 
 ### 5.3 Vulnerable Content Provider
+Content provider (içerik sağlayıcısı), uygulamalar arası veri paylaşımını sağlar, erişim kontrollerinin yapıldığı yer olarak belirtilebilir. Paketin ismini öğrendikten sonra `dumpsys` ile sağlayıcılar listelenebilir.
+
+![image](https://github.com/arzuozkan/AndroidSecurityNotes/assets/48025290/f40f22d0-a6b1-4577-b24f-01b54b632b61)
+
+Manifest dosyası içerisinden de görülebilir bu bileşenler.
+
+![image](https://github.com/arzuozkan/AndroidSecurityNotes/assets/48025290/cbaf486a-8456-4223-b55b-a4329586c731)
+
+Bu bileşenin içeriğinde URL bağlantısı verilmiş
+![image](https://github.com/arzuozkan/AndroidSecurityNotes/assets/48025290/daf42399-d084-44be-96c1-87f119e5c8e7)
+
+adb shell ile cihazın terminaline eriştikten sonra `content query --uri content://CONTENT_URL` şeklinde paylaşılan veriler görülebiliyor.  
+
+![image](https://github.com/arzuozkan/AndroidSecurityNotes/assets/48025290/6359509e-0876-4881-ab42-869f87028079)
+
+Bu işlemi otomatik gerçekleştiren araçlar ile de yapabiliriz. Drozer bunlardan bir tanesi [4]
+
+## 6. Information Disclosure (Bilgi İfşası)
+### 6.1 Güvensiz Loglama
+Çalışan uygulamnın kayıtlarını `adb logcat` komutu ile inceleyebiliriz. Bu kayıtlara erişim olduğundan içerisinde hassas bilgilerin bulunması bilgi ifşasına yol açmaktadır. Bu senaryoda kredi kart bilgilerinin girilerek ödeme yapılması istenmektedir.
+
+![image](https://github.com/arzuozkan/AndroidSecurityNotes/assets/48025290/7b2663be-72e8-492c-ac39-a096b2a80139)
+
+Bilgiler girilip, öde butonuna tıklandığında gösterilen kayıtlar içerisinde girilmiş kart bilgisi de yer almaktadır.
+
+![image](https://github.com/arzuozkan/AndroidSecurityNotes/assets/48025290/ddd8defe-9ea8-4e7f-929f-7dffcdac5cde)
+
+### 6.2 Clipboard Data (Pano Verileri)
+
+Android 9 ve altı sürümlerde pano verilerine tam erişime izin veriliyordu. Android 10 ile birlikte pano verilerine erişim kısıtı geldi.
 
 ## Kaynaklar
 1. https://medium.com/mobis3c/exploiting-android-webview-vulnerabilities-e2bcff780892
 2. https://github.com/payloadbox/sql-injection-payload-list
-3. 
+3. https://cloud.hacktricks.xyz/pentesting-cloud/gcp-security/gcp-services/gcp-firebase-enum
+4. https://book.hacktricks.xyz/mobile-pentesting/android-app-pentesting/drozer-tutorial/exploiting-content-providers
